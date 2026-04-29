@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#f6f1e9"/>
+  <rect width="1200" height="630" fill="black" filter="url(#grain)" opacity="0.5"/>
+
+  <!-- Top meta row -->
+  <g font-family="ui-monospace, monospace" font-size="14" letter-spacing="3" fill="#8a8275">
+    <text x="60" y="60">YASH ARYA · PORTFOLIO · INDEX 2026</text>
+    <text x="1140" y="60" text-anchor="end">EDITION — APR 2026</text>
+  </g>
+
+  <!-- Display name -->
+  <g font-family="Georgia, 'Instrument Serif', serif" fill="#1a1814">
+    <text x="60" y="340" font-size="220" letter-spacing="-8">Yash<tspan fill="#d24e1d">.</tspan></text>
+    <text x="220" y="500" font-size="180" letter-spacing="-6" font-style="italic" font-weight="300">Arya</text>
+  </g>
+
+  <!-- Tagline -->
+  <g font-family="system-ui, sans-serif" fill="#3a352d">
+    <text x="60" y="570" font-size="22">Full Stack Developer · Web3 · AI/ML · VS Code Tools</text>
+  </g>
+
+  <!-- Bottom rule + meta -->
+  <line x1="60" y1="600" x2="1140" y2="600" stroke="#d9d2c4" stroke-width="1"/>
+</svg>
