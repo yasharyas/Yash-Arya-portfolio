@@ -3,7 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yasharya.dev";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yash-arya.com";
 const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? "";
 
 export const metadata: Metadata = {
