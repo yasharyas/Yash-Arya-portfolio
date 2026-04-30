@@ -5,6 +5,11 @@ const nextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/ppt", destination: "/ppt/index.html" },
+    ];
+  },
 };
 
 export default nextConfig;

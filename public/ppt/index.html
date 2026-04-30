@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Yash Arya — Portfolio Deck</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e9; --ink:#1a1814; --ink2:#3a352d; --muted:#8a8275;
+    --rule:#d9d2c4; --ember:#d24e1d; --cream:#ece4d3;
+    --display:'Instrument Serif', Georgia, serif;
+    --sans:'Inter', system-ui, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0c0a08;color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+  /* Stage: each slide is 1920x1080, scaled to fit viewport */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:1920px;height:1080px;transform-origin:center center;background:var(--paper);box-shadow:0 30px 120px rgba(0,0,0,.5)}
+  .deck::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .slide{position:absolute;inset:0;padding:80px 110px;display:none;flex-direction:column}
+  .slide.active{display:flex}
+
+  /* Common chrome */
+  .top-meta{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+  .top-meta .ember{color:var(--ember)}
+  .rule{height:1px;background:var(--rule);width:100%}
+  .footer{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .footer .name{color:var(--ink2)}
+
+  h1.display,h2.display,h3.display{font-family:var(--display);font-weight:400;letter-spacing:-0.02em;line-height:.92;color:var(--ink)}
+  .ember{color:var(--ember)}
+  .ink2{color:var(--ink2)}
+  .muted{color:var(--muted)}
+  .mono{font-family:var(--mono)}
+
+  /* ----- COVER ----- */
+  .cover h1{font-size:280px;margin-top:60px}
+  .cover .sub{font-family:var(--display);font-style:italic;font-size:56px;color:var(--ink2);margin-top:40px;max-width:1500px;line-height:1.15}
+  .cover .meta-row{display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:center;margin-bottom:40px}
+  .cover .avatar{width:88px;height:88px;border-radius:50%;background:var(--ink);position:relative;display:flex;align-items:center;justify-content:center;color:var(--paper);font-family:var(--display);font-size:38px}
+  .cover .avatar::after{content:"";position:absolute;right:-2px;bottom:-2px;width:14px;height:14px;border-radius:50%;background:var(--ember);box-shadow:0 0 0 3px var(--paper)}
+
+  /* ----- TWO-COL section ----- */
+  .grid12{display:grid;grid-template-columns:repeat(12,1fr);gap:32px}
+  .section-num{font-family:var(--mono);font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--ember)}
+  .section-title{font-family:var(--display);font-size:140px;line-height:.9;margin-top:24px}
+  .section-kicker{font-family:var(--display);font-style:italic;font-size:32px;color:var(--ink2);margin-top:24px;max-width:900px;line-height:1.3}
+
+  /* ABOUT */
+  .about-body{font-family:var(--display);font-size:36px;line-height:1.35;color:var(--ink);max-width:1100px;margin-top:30px}
+  .about-body p{margin-top:24px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px;padding-top:40px;border-top:1px solid var(--rule)}
+  .stat .v{font-family:var(--display);font-size:96px;line-height:1;color:var(--ink)}
+  .stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+
+  /* EXPERIENCE */
+  .exp-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:30px;padding-bottom:24px;border-bottom:1px solid var(--rule)}
+  .exp-head .company{font-family:var(--display);font-size:96px;line-height:.95}
+  .exp-head .role{font-size:22px;color:var(--ink2);margin-top:10px;line-height:1.4}
+  .exp-head .meta{text-align:right;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:2}
+  .exp-head .product{font-family:var(--display);font-style:italic;font-size:28px;color:var(--ember);text-transform:none;letter-spacing:0;margin-top:6px}
+  .exp-bullets{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:24px 50px}
+  .exp-bullets li{font-size:19px;line-height:1.5;color:var(--ink2);list-style:none;padding-left:28px;position:relative}
+  .exp-bullets li::before{content:"";position:absolute;left:0;top:13px;width:14px;height:1px;background:var(--ember)}
+  .stack{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px}
+  .stack span{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);padding:8px 14px;border:1px solid var(--rule);border-radius:999px;background:var(--cream)}
+
+  /* WORK */
+  .work-head{display:grid;grid-template-columns:120px 1fr auto;gap:40px;align-items:end;margin-top:30px;padding-bottom:24px;border-bottom:1px solid var(--rule)}
+  .work-head .idx{font-family:var(--display);font-size:140px;line-height:.85;color:var(--ember)}
+  .work-head .title{font-family:var(--display);font-size:104px;line-height:.95}
+  .work-head .meta{text-align:right;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:2}
+  .work-tagline{font-family:var(--display);font-style:italic;font-size:38px;color:var(--ink2);margin-top:24px;max-width:1500px;line-height:1.25}
+  .work-body{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;margin-top:36px}
+  .work-body .desc{font-size:21px;line-height:1.55;color:var(--ink2)}
+  .work-body .hi{margin:0;display:flex;flex-direction:column;gap:14px}
+  .work-body .hi li{list-style:none;font-size:18px;line-height:1.5;color:var(--ink);padding-left:24px;position:relative}
+  .work-body .hi li::before{content:"→";position:absolute;left:0;top:0;color:var(--ember);font-family:var(--mono)}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 80px;margin-top:40px}
+  .skill-group .gname{font-family:var(--mono);font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--ember);padding-bottom:14px;border-bottom:1px solid var(--rule)}
+  .skill-group .items{margin-top:18px;font-family:var(--display);font-size:30px;line-height:1.35;color:var(--ink)}
+  .skill-group .items span{color:var(--muted);margin:0 10px}
+
+  /* CREDENTIALS */
+  .creds-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:30px}
+  .creds-col h3{font-family:var(--mono);font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--ember);padding-bottom:14px;border-bottom:1px solid var(--rule);margin-bottom:18px}
+  .creds-col ul{list-style:none}
+  .creds-col li{padding:12px 0;border-bottom:1px solid var(--rule);font-size:18px;color:var(--ink2);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline}
+  .creds-col li .iss{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .edu-card{margin-top:30px;padding:30px;background:var(--cream);border:1px solid var(--rule)}
+  .edu-card .deg{font-family:var(--display);font-size:42px;line-height:1.1}
+  .edu-card .sch{font-size:18px;color:var(--ink2);margin-top:8px}
+  .edu-card .meta{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+
+  /* OTHER PROJECTS */
+  .other-list{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
+  .other-list .row{display:grid;grid-template-columns:1fr auto;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--rule);gap:24px}
+  .other-list .nm{font-family:var(--display);font-size:38px;line-height:1}
+  .other-list .nt{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .other-list .yr{font-family:var(--mono);font-size:13px;color:var(--ember);letter-spacing:.18em}
+
+  /* CONTACT */
+  .contact h1{font-size:220px;margin-top:40px}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:60px;padding-top:40px;border-top:1px solid var(--rule)}
+  .contact-grid .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+  .contact-grid .val{font-family:var(--display);font-size:34px;margin-top:14px;line-height:1.2;word-break:break-word}
+  .contact-grid .val a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+
+  /* HUD (deck chrome) */
+  .hud{position:fixed;bottom:18px;left:0;right:0;display:flex;justify-content:center;gap:14px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9a9286;z-index:50;pointer-events:none}
+  .hud .pill{background:rgba(246,241,233,.08);padding:8px 14px;border-radius:999px;border:1px solid rgba(246,241,233,.12);pointer-events:auto}
+  .hud .count{color:#d24e1d}
+  .progress{position:fixed;top:0;left:0;height:2px;background:var(--ember);z-index:51;transition:width .3s ease}
+
+  @media print{
+    html,body{background:#fff;overflow:visible}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;page-break-after:always;box-shadow:none}
+    .slide{display:flex!important;page-break-after:always}
+    .hud,.progress{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- 01 · COVER -->
+    <section class="slide cover active">
+      <div class="top-meta">
+        <div>Index — N° <span class="ember">001</span></div>
+        <div>Faridabad · New Delhi, India</div>
+        <div>Edition — Apr 2026 · Spring</div>
+      </div>
+      <h1 class="display">Yash<span class="ember">.</span><br/>Arya<span class="ember">.</span></h1>
+      <p class="sub">I build production software, end to end. Admin dashboards, smart contracts, ML pipelines, editor tools — shipped, not demoed.</p>
+      <div class="footer">
+        <div class="name">Full Stack Developer · Web3 · AI / ML · VS Code Extension Developer</div>
+        <div>B.Tech CSE @ Bennett University (2022–2026) · Frontend Engineering Intern @ Pelocal Fintech</div>
+      </div>
+    </section>
+
+    <!-- 02 · ABOUT -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 002 · About</div><div class="ember">Yash Arya</div><div>Edition — Apr 2026</div></div>
+      <div class="grid12" style="margin-top:60px">
+        <div style="grid-column:span 4">
+          <div class="section-num">Profile</div>
+          <h2 class="display section-title">About<span class="ember">.</span></h2>
+        </div>
+        <div style="grid-column:span 8">
+          <div class="about-body">
+            <p>I'm Yash, a final-year CS student at Bennett University and a frontend engineer interning at Pelocal Fintech, where I'm the sole frontend on an event-operations admin panel running 100+ events and 500+ menu items in production.</p>
+            <p>Across four internships — LG, a Government of India PSU, ILBS healthcare, and Pelocal — I've learned that good software is less about the stack and more about the seams: the validation that catches a double booking before launch, the cache that turns a 1,000-row table into a 300ms page, the SHAP value that makes an AI prediction defensible.</p>
+            <p>I work the full spectrum: React + TypeScript dashboards, Solidity on Polygon, PyTorch on a 3060, VS Code extensions, terminal hooks. MERN-first, polyglot when the problem asks for it.</p>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v">4+</div><div class="l">Internships shipped</div></div>
+        <div class="stat"><div class="v">56</div><div class="l">Public repos</div></div>
+        <div class="stat"><div class="v">294</div><div class="l">Contributions / yr</div></div>
+        <div class="stat"><div class="v">27</div><div class="l">OSS components extracted</div></div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>02 / 14</div></div>
+    </section>
+
+    <!-- 03 · EXPERIENCE divider -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 003 · Experience</div><div class="ember">Four internships</div><div>2024 — 2026</div></div>
+      <div style="margin-top:auto;margin-bottom:auto">
+        <div class="section-num">Chapter Three</div>
+        <h2 class="display" style="font-size:240px;margin-top:30px">Experience<span class="ember">.</span></h2>
+        <p class="section-kicker">LG · Central Electronics Limited · Ohum Healthcare (ILBS) · Pelocal Fintech — production work, not coursework.</p>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>03 / 14</div></div>
+    </section>
+
+    <!-- 04 · PELOCAL -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 003.1 · Experience</div><div class="ember">Pelocal Fintech</div><div>Dec 2025 — Ongoing</div></div>
+      <div class="exp-head">
+        <div>
+          <div class="company">Pelocal<br/>Fintech<span class="ember">.</span></div>
+          <div class="role">Software Engineering Intern — Frontend Systems · Noida</div>
+        </div>
+        <div class="meta">
+          Dec 2025 — Ongoing<br/>
+          <span class="product">MyAnthology · Sammaan Capital</span>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Sole frontend on the MyAnthology Admin Panel — React + TypeScript dashboard managing 100+ events, 500+ menu items, live customer bookings.</li>
+        <li>Architected 8+ admin modules with TanStack Query + Table → sub-300ms cached loads on 1,000-row tables; ~60% less data-fetch boilerplate.</li>
+        <li>Seat-availability + future-date + double-booking guards eliminated overbooking entirely (down from 12+ pre-launch QA issues).</li>
+        <li>Zod validation across all forms cut backend rejection from ~18% to under 2%.</li>
+        <li>GST reporting dashboards (CGST/SGST/IGST) replaced ~4 hrs/week of manual Excel reconciliation.</li>
+        <li>5-step Sammaan Capital loan flow with per-step Zod validation cut drop-off ~25% vs. the legacy single-page form.</li>
+        <li>Extracted 27 reusable primitives into the open-source yash-ui-system Turborepo. New-page scaffolding: ~2 days → ~4 hrs.</li>
+      </ul>
+      <div class="stack">
+        <span>React</span><span>TypeScript</span><span>TanStack Query</span><span>TanStack Table</span><span>Zod</span><span>Tailwind</span><span>Turborepo</span><span>shadcn/ui</span>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>04 / 14</div></div>
+    </section>
+
+    <!-- 05 · OHUM -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 003.2 · Experience</div><div class="ember">Ohum Healthcare Solutions</div><div>Jun — Jul 2025</div></div>
+      <div class="exp-head">
+        <div>
+          <div class="company">Ohum<br/>Healthcare<span class="ember">.</span></div>
+          <div class="role">Backend QA Intern — HIS at ILBS · New Delhi</div>
+        </div>
+        <div class="meta">
+          Jun — Jul 2025<br/>
+          <span class="product">Hospital Information System for ILBS</span>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Validated RBAC across 6 roles (admin, doctor, nurse, lab tech, billing, patient) — caught 22+ privilege-escalation gaps pre-rollout.</li>
+        <li>Wrote 80+ raw SQL queries in DBeaver/PostgreSQL; surfaced 9 silent UI/DB data-mismatch bugs.</li>
+        <li>Ran 4 full QA cycles across OPD, IPD, Lab, Pharmacy modules → 45+ Jira defects, ~30% drop in post-release hotfixes.</li>
+        <li>Authored regression baselines for admission, discharge summary, and lab-result workflows — reused by the in-house team.</li>
+      </ul>
+      <div class="stack"><span>PostgreSQL</span><span>DBeaver</span><span>SQL</span><span>Jira</span><span>RBAC</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>05 / 14</div></div>
+    </section>
+
+    <!-- 06 · LG -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 003.3 · Experience</div><div class="ember">LG Electronics</div><div>Jul 2024</div></div>
+      <div class="exp-head">
+        <div>
+          <div class="company">LG<br/>Electronics<span class="ember">.</span></div>
+          <div class="role">Industrial Trainee — Full Stack · Greater Noida</div>
+        </div>
+        <div class="meta">
+          Jul 2024<br/>
+          <span class="product">Inventory Management System</span>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built a C# + ASP.NET + SQL Server inventory system digitizing 10,000+ SKUs for 15+ floor staff.</li>
+        <li>Barcode-matched lookup tool (Django + JS + MySQL) cut product lookup from ~45s to ~3s.</li>
+        <li>Role-based auth + audit logging closed a recurring ~5% month-end reconciliation gap.</li>
+        <li>Prototype demoed and approved by warehouse operations head inside the 4-week window.</li>
+      </ul>
+      <div class="stack"><span>C#</span><span>ASP.NET</span><span>SQL Server</span><span>Django</span><span>MySQL</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>06 / 14</div></div>
+    </section>
+
+    <!-- 07 · CEL -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 003.4 · Experience</div><div class="ember">Central Electronics Limited</div><div>May — Jun 2024</div></div>
+      <div class="exp-head">
+        <div>
+          <div class="company">Central<br/>Electronics<span class="ember">.</span></div>
+          <div class="role">Backend Developer Intern — Govt. of India PSU · Ghaziabad</div>
+        </div>
+        <div class="meta">
+          May — Jun 2024<br/>
+          <span class="product">Government Job Portal</span>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built 12 REST endpoints (Node + Express + Mongo) handling 500 concurrent mock requests without timeouts.</li>
+        <li>Cloudinary integration for resume/photo uploads with MIME validation + 5MB caps → ~90% fewer invalid-upload errors.</li>
+        <li>bcrypt (10 rounds) + JWT (24h) closed an OWASP A02 gap (prior storage was plaintext).</li>
+        <li>Documented 18+ reproducible defects with cURL repros; 15 patched before QA hand-off.</li>
+      </ul>
+      <div class="stack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Cloudinary</span><span>JWT</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>07 / 14</div></div>
+    </section>
+
+    <!-- 08 · WORK divider -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Selected Work</div><div class="ember">Seven projects</div><div>2024 — 2026</div></div>
+      <div style="margin-top:auto;margin-bottom:auto">
+        <div class="section-num">Chapter Four</div>
+        <h2 class="display" style="font-size:240px;margin-top:30px">Selected<br/>Work<span class="ember">.</span></h2>
+        <p class="section-kicker">Editor tools, AI tutors, explainable Web3, headless commerce — solo and small teams, all shipped.</p>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>08 / 14</div></div>
+    </section>
+
+    <!-- 09 · PROMPTLOCK -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Work</div><div class="ember">PromptLock</div><div>2026 · Active · Solo</div></div>
+      <div class="work-head">
+        <div class="idx">01</div>
+        <div class="title">PromptLock<span class="ember">.</span></div>
+        <div class="meta">2026<br/>Active · Solo<br/><span class="ember">github.com/yasharyas/Promptlock</span></div>
+      </div>
+      <p class="work-tagline">Agent-aware distraction control for VS Code.</p>
+      <div class="work-body">
+        <div class="desc">A VS Code extension that watches GitHub Copilot agent activity through in-memory editor events. When you're typing, your browser windows close. When the agent is working, they open. When it needs your approval, they close again. Earn the scroll, then put it down.</div>
+        <ul class="hi">
+          <li>Two-state machine driven by 7 detection signals — primary is onDidStartTerminalShellExecution.</li>
+          <li>Distraction windows open at iPhone 14 Pro dimensions (393×852) with a mobile UA so Shorts and Reels scroll natively.</li>
+          <li>Hard Lock, Punishment, and Reverse-Dopamine modes. All analytics local — zero external transmission.</li>
+          <li>Replaces a polling approach (v1–v6) that had 17–55s detection delays. Fires instantly.</li>
+        </ul>
+      </div>
+      <div class="stack"><span>TypeScript</span><span>VS Code Extension API</span><span>Chromium IPC</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>09 / 14</div></div>
+    </section>
+
+    <!-- 10 · AI STUDY TUTOR -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Work</div><div class="ember">AI Study Tutor</div><div>2026 · Shipped</div></div>
+      <div class="work-head">
+        <div class="idx">02</div>
+        <div class="title">AI Study Tutor<span class="ember">.</span></div>
+        <div class="meta">2026<br/>Shipped · with Kuljot Singh<br/><span class="ember">tutor-chatbot-eight.vercel.app</span></div>
+      </div>
+      <p class="work-tagline">A subject tutor with four teaching modes and live token streaming.</p>
+      <div class="work-body">
+        <div class="desc">A Gemini-powered tutor that adapts how it teaches: Explain, Socratic, Revision, or Exam-Focused. Tokens stream over SSE. Voice input drives a 48-bar Web Audio visualizer. Drop an image, get multimodal analysis.</div>
+        <ul class="hi">
+          <li>Four teaching modes — Socratic mode never gives the answer.</li>
+          <li>Token-by-token SSE streaming with Framer Motion typewriter character animation.</li>
+          <li>LaTeX, code highlighting, exportable notes. Zustand-scoped session memory.</li>
+          <li>Strict TypeScript (zero any), comprehensive Jest suite, IP-based rate limiting at the edge.</li>
+        </ul>
+      </div>
+      <div class="stack"><span>Next.js 16</span><span>React 19</span><span>Gemini 2.5 Flash</span><span>Zustand</span><span>Framer Motion</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>10 / 14</div></div>
+    </section>
+
+    <!-- 11 · XAI-CHAIN -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Work</div><div class="ember">XAI-Chain</div><div>2025 · Shipped</div></div>
+      <div class="work-head">
+        <div class="idx">03</div>
+        <div class="title">XAI-Chain<span class="ember">.</span></div>
+        <div class="meta">2025<br/>Shipped · with Abhigyan Tyagi<br/><span class="ember">github.com/yasharyas/Xplainable-chain</span></div>
+      </div>
+      <p class="work-tagline">Explainable AI for blockchain transaction security.</p>
+      <div class="work-body">
+        <div class="desc">A full-stack Web3 + AI platform that classifies blockchain transactions as malicious or benign, explains every prediction with SHAP values, and stores both on-chain via Polygon Amoy testnet. Every verdict is auditable.</div>
+        <ul class="hi">
+          <li>XGBoost on 9 transaction features → 100% test accuracy on 10,000 synthetic transactions.</li>
+          <li>SHAP per-feature contributions uploaded to IPFS via Pinata, hash + risk score pinned on-chain.</li>
+          <li>Dockerized FastAPI + Next.js 14 frontend. 6/6 Hardhat smart-contract tests passing.</li>
+          <li>Three-page frontend — landing, analyze, dashboard — with RainbowKit + Wagmi v2 wallet auth.</li>
+        </ul>
+      </div>
+      <div class="stack"><span>Python</span><span>FastAPI</span><span>XGBoost</span><span>SHAP</span><span>Solidity</span><span>Next.js 14</span><span>Polygon</span></div>
+      <div class="footer"><div class="name">Yash Arya</div><div>11 / 14</div></div>
+    </section>
+
+    <!-- 12 · YASH-UI / HAM10000 / SHOESTORE / CRYPTO combined ledger -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Work</div><div class="ember">04 — 07 · Continued</div><div>2024 — 2026</div></div>
+      <div class="grid12" style="margin-top:30px">
+        <div style="grid-column:span 6;border-right:1px solid var(--rule);padding-right:40px">
+          <div class="work-head" style="grid-template-columns:90px 1fr;border-bottom:1px solid var(--rule);padding-bottom:18px">
+            <div class="idx" style="font-size:90px">04</div>
+            <div>
+              <div class="title" style="font-size:60px">yash-ui-system<span class="ember">.</span></div>
+              <div class="mono muted" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-top:8px">2026 · Active</div>
+            </div>
+          </div>
+          <p style="font-family:var(--display);font-style:italic;font-size:24px;color:var(--ink2);margin-top:18px;line-height:1.3">A Turborepo of components extracted from production work.</p>
+          <p style="font-size:16px;line-height:1.55;color:var(--ink2);margin-top:14px">shadcn-style monorepo with a CLI that copies components straight into consumer projects. Fifteen LanceMart AI components and twelve portfolio primitives, all generalized from real Pelocral production code.</p>
+          <ul class="hi" style="margin-top:16px;gap:8px">
+            <li style="font-size:15px"><span class="mono" style="color:var(--ember)">npx yash-ui add &lt;component&gt;</span> — no install, just source.</li>
+            <li style="font-size:15px">apps/gallery preview app with popup previews per component.</li>
+            <li style="font-size:15px">Three packages: ui, registry, cli. 97% TypeScript.</li>
+          </ul>
+          <div class="stack" style="margin-top:18px"><span>Turborepo</span><span>TypeScript</span><span>Next.js</span><span>Tailwind</span><span>Node CLI</span></div>
+        </div>
+        <div style="grid-column:span 6;padding-left:20px">
+          <div class="work-head" style="grid-template-columns:90px 1fr;border-bottom:1px solid var(--rule);padding-bottom:18px">
+            <div class="idx" style="font-size:90px">05</div>
+            <div>
+              <div class="title" style="font-size:60px">HAM10000<span class="ember">.</span></div>
+              <div class="mono muted" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-top:8px">2025 · Team of 4</div>
+            </div>
+          </div>
+          <p style="font-family:var(--display);font-style:italic;font-size:24px;color:var(--ink2);margin-top:18px;line-height:1.3">Deep learning on 10,015 dermoscopy images, 7 lesion classes.</p>
+          <p style="font-size:16px;line-height:1.55;color:var(--ink2);margin-top:14px">PyTorch pipeline classifying skin lesions with EfficientNetV2-RW-S and ConvNeXt-Tiny ensembles. Focal loss handles a brutal 6,705-vs-115 class imbalance. Grad-CAM heatmaps make every prediction inspectable.</p>
+          <ul class="hi" style="margin-top:16px;gap:8px">
+            <li style="font-size:15px">EfficientNetV2-RW-S → 94.21% validation accuracy on a single RTX 3060 in ~1.5h.</li>
+            <li style="font-size:15px">Focal Loss (γ=2.0) for class imbalance · Mixed Precision FP16 for 2× speedup.</li>
+            <li style="font-size:15px">AdamW + CosineAnnealing LR + best-only checkpointing. Stratified 85/15 split.</li>
+          </ul>
+          <div class="stack" style="margin-top:18px"><span>PyTorch 2.6</span><span>timm</span><span>Grad-CAM</span><span>scikit-learn</span></div>
+        </div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>12 / 14</div></div>
+    </section>
+
+    <!-- 13 · OTHER PROJECTS + SHOESTORE/CRYPTO -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 004 · Ledger</div><div class="ember">06 — 07 · Other Projects</div><div>2023 — 2026</div></div>
+      <div class="grid12" style="margin-top:30px">
+        <div style="grid-column:span 6;padding-right:40px;border-right:1px solid var(--rule)">
+          <div class="section-num">06 · ShoeStore <span class="muted">— 2024 · Solo</span></div>
+          <p style="font-family:var(--display);font-style:italic;font-size:26px;color:var(--ink2);margin-top:14px;line-height:1.3">Headless e-commerce with Stripe, Cloudinary, and a Strapi backend.</p>
+          <p style="font-size:16px;line-height:1.55;color:var(--ink2);margin-top:12px">Next.js storefront on a Strapi CMS. Stripe for payments, Cloudinary for media, Redux for cart state. Mobile-first responsive with a measured 25% engagement lift on mobile.</p>
+          <div class="stack" style="margin-top:14px"><span>Next.js</span><span>Tailwind</span><span>Redux</span><span>Strapi</span><span>Stripe</span><span>Cloudinary</span></div>
+
+          <div class="section-num" style="margin-top:36px">07 · Crypto Portfolio DApp <span class="muted">— 2024 · with Akshay Sinha</span></div>
+          <p style="font-family:var(--display);font-style:italic;font-size:26px;color:var(--ink2);margin-top:14px;line-height:1.3">Multi-chain portfolio with cross-border payments.</p>
+          <p style="font-size:16px;line-height:1.55;color:var(--ink2);margin-top:12px">MetaMask + RainbowKit wallet auth, ERC20 + NFT tracking with on-chain queries, live pricing via CoinMarketCap, OpenAI-generated portfolio insights. Three payment rails: Ethereum, card, bank.</p>
+          <div class="stack" style="margin-top:14px"><span>Next.js</span><span>Solidity</span><span>Wagmi</span><span>RainbowKit</span><span>ethers.js</span></div>
+        </div>
+        <div style="grid-column:span 6;padding-left:20px">
+          <div class="section-num">Also Building</div>
+          <h2 class="display" style="font-size:64px;margin-top:8px;line-height:.95">Other<br/>Projects<span class="ember">.</span></h2>
+          <div class="other-list" style="grid-template-columns:1fr;gap:0;margin-top:20px">
+            <div class="row"><div><div class="nm" style="font-size:28px">no-as-a-service-web</div><div class="nt">Edge runtime · WCAG 2.1 AA</div></div><div class="yr">2026</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">FAHHH</div><div class="nt">5★ · cross-platform CLI · 1-line install</div></div><div class="yr">2026</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">CampusConvene</div><div class="nt">Room booking · Firebase · 4 contributors</div></div><div class="yr">2024</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">X-Park (SIH)</div><div class="nt">Smart parking · ALPR · FASTag</div></div><div class="yr">2023</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">Redis Search Engine</div><div class="nt">TF-IDF · ZSET-based</div></div><div class="yr">2024</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">Web3Drive</div><div class="nt">Decentralized file sharing</div></div><div class="yr">2024</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">Million Times Clock</div><div class="nt">Art installation replica</div></div><div class="yr">2025</div></div>
+            <div class="row"><div><div class="nm" style="font-size:28px">AutoMatic Maze Solver</div><div class="nt">C++ · pinned</div></div><div class="yr">2023</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>13 / 14</div></div>
+    </section>
+
+    <!-- 14 · SKILLS -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 005 · Toolkit</div><div class="ember">Skills</div><div>Languages · Frameworks · Infra</div></div>
+      <div class="grid12" style="margin-top:30px">
+        <div style="grid-column:span 4">
+          <div class="section-num">Chapter Five</div>
+          <h2 class="display section-title">Skills<span class="ember">.</span></h2>
+          <p class="section-kicker" style="font-size:24px">MERN-first, polyglot when the problem asks for it.</p>
+        </div>
+        <div style="grid-column:span 8">
+          <div class="skills-grid">
+            <div class="skill-group"><div class="gname">Languages</div><div class="items">TypeScript<span>·</span>JavaScript<span>·</span>Python<span>·</span>Solidity<span>·</span>C#<span>·</span>C++<span>·</span>Java<span>·</span>Dart<span>·</span>SQL</div></div>
+            <div class="skill-group"><div class="gname">Frontend</div><div class="items">React<span>·</span>Next.js<span>·</span>Tailwind<span>·</span>TanStack Query<span>·</span>TanStack Table<span>·</span>Framer Motion<span>·</span>shadcn/ui<span>·</span>Zod<span>·</span>Vite</div></div>
+            <div class="skill-group"><div class="gname">Backend</div><div class="items">Node.js<span>·</span>Express<span>·</span>Django<span>·</span>Flask<span>·</span>ASP.NET<span>·</span>REST</div></div>
+            <div class="skill-group"><div class="gname">Data</div><div class="items">PostgreSQL<span>·</span>MongoDB<span>·</span>MySQL<span>·</span>SQL Server<span>·</span>Redis</div></div>
+            <div class="skill-group"><div class="gname">Web3</div><div class="items">Solidity<span>·</span>ethers.js<span>·</span>Wagmi<span>·</span>RainbowKit<span>·</span>Hardhat<span>·</span>IPFS / Pinata</div></div>
+            <div class="skill-group"><div class="gname">AI / ML</div><div class="items">PyTorch<span>·</span>XGBoost<span>·</span>SHAP<span>·</span>scikit-learn<span>·</span>EfficientNetV2<span>·</span>Grad-CAM<span>·</span>Gemini API</div></div>
+          </div>
+          <div class="skill-group" style="margin-top:30px"><div class="gname">Infra</div><div class="items">Docker<span>·</span>GitHub Actions<span>·</span>Vercel<span>·</span>GCP<span>·</span>Turborepo<span>·</span>Cloudinary</div></div>
+        </div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>14 / 17</div></div>
+    </section>
+
+    <!-- 15 · CREDENTIALS -->
+    <section class="slide">
+      <div class="top-meta"><div>§ 006 · Credentials</div><div class="ember">Education · Certifications · Badges</div><div>12 certifications · 2 GCP profiles</div></div>
+      <div class="grid12" style="margin-top:30px">
+        <div style="grid-column:span 5">
+          <div class="section-num">Education</div>
+          <div class="edu-card">
+            <div class="deg">B.Tech, Computer<br/>Science Engineering<span class="ember">.</span></div>
+            <div class="sch">Bennett University · Greater Noida</div>
+            <div class="meta">Aug 2022 — Jun 2026 (expected)</div>
+          </div>
+          <div class="section-num" style="margin-top:30px">Google Cloud Skills Boost</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px">
+            <div style="padding:24px;background:var(--cream);border:1px solid var(--rule)"><div class="mono muted" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase">Profile A · Since 2023</div><div style="font-family:var(--display);font-size:48px;margin-top:10px">10,645</div><div class="mono ember" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-top:6px">Silver League</div></div>
+            <div style="padding:24px;background:var(--cream);border:1px solid var(--rule)"><div class="mono muted" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase">Profile B · Since 2022</div><div style="font-family:var(--display);font-size:48px;margin-top:10px">2,100</div><div class="mono ember" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-top:6px">Silver League</div></div>
+          </div>
+        </div>
+        <div style="grid-column:span 7">
+          <div class="creds-col">
+            <h3>Certifications · 12</h3>
+            <ul>
+              <li><span>Ethereum &amp; Solidity: The Complete Developer's Guide</span><span class="iss">Udemy</span></li>
+              <li><span>Blockchain and its Applications</span><span class="iss">NPTEL</span></li>
+              <li><span>Blockchain Basics</span><span class="iss">Univ. at Buffalo · Coursera</span></li>
+              <li><span>Cloud Computing &amp; Distributed Systems</span><span class="iss">NPTEL</span></li>
+              <li><span>Object-Oriented Data Structures in C++</span><span class="iss">Univ. of Illinois · Coursera</span></li>
+              <li><span>Introduction to Modern Database Systems (CS403)</span><span class="iss">Saylor Academy</span></li>
+              <li><span>Using Git for Distributed Development</span><span class="iss">The Linux Foundation</span></li>
+              <li><span>Postman API Fundamentals Student Expert</span><span class="iss">Postman</span></li>
+              <li><span>C++ Programming Specialization (5 courses)</span><span class="iss">Coursera · Codio</span></li>
+              <li><span>MATLAB — Onramp · Linear Algebra · ODEs</span><span class="iss">MathWorks</span></li>
+              <li><span>Data Visualisation: Empowering Business with Effective Insights</span><span class="iss">Tata · Forage</span></li>
+              <li><span>Digital Marketing</span><span class="iss">Google Digital Garage</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya</div><div>15 / 17</div></div>
+    </section>
+
+    <!-- 16 · CONTACT -->
+    <section class="slide contact">
+      <div class="top-meta"><div>§ 007 · Contact</div><div class="ember">Let's build</div><div>Apr 2026 · Spring</div></div>
+      <h1 class="display">Get in<br/>touch<span class="ember">.</span></h1>
+      <div class="contact-grid">
+        <div><div class="lbl">Email</div><div class="val"><a href="mailto:yasharya2601@gmail.com">yasharya2601@gmail.com</a><br/><span class="muted" style="font-size:18px">yasharyas@proton.me</span></div></div>
+        <div><div class="lbl">Phone</div><div class="val">+91 70656 99918</div></div>
+        <div><div class="lbl">Location</div><div class="val">Faridabad<br/>New Delhi, India</div></div>
+        <div><div class="lbl">GitHub</div><div class="val"><a href="https://github.com/yasharyas">github.com/yasharyas</a></div></div>
+        <div><div class="lbl">LinkedIn</div><div class="val"><a href="https://www.linkedin.com/in/yash--arya/">/in/yash--arya</a></div></div>
+        <div><div class="lbl">Twitter / X</div><div class="val"><a href="https://twitter.com/yasharyass">@yasharyass</a></div></div>
+      </div>
+      <div class="footer"><div class="name">Yash Arya · Full Stack Developer</div><div>16 / 17</div></div>
+    </section>
+
+    <!-- 17 · END -->
+    <section class="slide">
+      <div class="top-meta"><div>End — N° 017</div><div class="ember">Fin.</div><div>Edition — Apr 2026</div></div>
+      <div style="margin:auto;text-align:center">
+        <div class="section-num" style="text-align:center">— Thank you —</div>
+        <h2 class="display" style="font-size:300px;margin-top:30px">Yash<span class="ember">.</span></h2>
+        <p class="section-kicker" style="font-size:36px;text-align:center;margin:30px auto 0">Shipped, not demoed.</p>
+      </div>
+      <div class="footer"><div class="name">yasharya2601@gmail.com</div><div>17 / 17</div></div>
+    </section>
+
+  </div>
+</div>
+
+<div class="hud">
+  <div class="pill"><span id="cur" class="count">01</span> / <span id="tot">17</span></div>
+  <div class="pill">← →  ·  Space  ·  F · Fullscreen  ·  P · Print to PDF</div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = parseInt(localStorage.getItem('yash-deck-idx') || '0', 10);
+  if (idx >= total) idx = 0;
+  document.getElementById('tot').textContent = String(total).padStart(2,'0');
+
+  function show(i){
+    idx = (i + total) % total;
+    slides.forEach((s,n) => s.classList.toggle('active', n === idx));
+    document.getElementById('cur').textContent = String(idx+1).padStart(2,'0');
+    document.getElementById('progress').style.width = ((idx+1)/total*100) + '%';
+    localStorage.setItem('yash-deck-idx', String(idx));
+  }
+
+  function fit(){
+    const deck = document.getElementById('deck');
+    const sx = window.innerWidth / 1920;
+    const sy = window.innerHeight / 1080;
+    const s = Math.min(sx, sy);
+    deck.style.transform = `scale(${s})`;
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); show(idx+1); }
+    else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); show(idx-1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(total-1);
+    else if (e.key.toLowerCase() === 'f') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+    else if (e.key.toLowerCase() === 'p') window.print();
+  });
+
+  // Click right half = next, left half = prev
+  document.addEventListener('click', e => {
+    if (e.target.closest('a,button,.hud')) return;
+    show(e.clientX > window.innerWidth/2 ? idx+1 : idx-1);
+  });
+
+  show(idx);
+</script>
+</body>
+</html>
