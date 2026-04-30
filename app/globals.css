@@ -77,6 +77,17 @@ main, header, footer, section { position: relative; z-index: 1; }
 }
 .marquee-track { animation: marquee 60s linear infinite; }
 
+/* Compositor layer hints — only on elements that actually animate */
+.project-card {
+  will-change: transform, opacity;
+}
+.project-plate-wrap {
+  will-change: transform;
+}
+.card-border-highlight {
+  will-change: opacity;
+}
+
 /* Display tweaks */
 .display {
   font-family: var(--font-display);
