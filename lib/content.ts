@@ -24,7 +24,7 @@ export const links = {
   phone: "+91 70656 99918",
   github: "https://github.com/yasharyas",
   linkedin: "https://www.linkedin.com/in/yash--arya/",
-  twitter: "https://twitter.com/yasharyass",
+  twitter: "https://twitter.com/yasharyaaa",
   gcpA:
     "https://www.skills.google/public_profiles/6c352e60-eda3-49c1-ae5f-db5e51f87fa3",
   gcpB:
