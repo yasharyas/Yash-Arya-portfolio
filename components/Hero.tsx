@@ -1,6 +1,46 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { profile, links } from "@/lib/content";
 
 export function Hero() {
+  const yashRef = useRef<HTMLSpanElement>(null);
+  const aryaRef = useRef<HTMLSpanElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Clip-mask reveal: each word slides up from below its overflow-hidden wrapper
+      tl.from([yashRef.current, aryaRef.current], {
+        yPercent: 110,
+        duration: 1.2,
+        stagger: 0.18,
+      });
+
+      // Typewriter character stagger on tagline — starts before name fully settles
+      const chars = taglineRef.current?.querySelectorAll(".tl-char");
+      if (chars?.length) {
+        tl.from(
+          chars,
+          {
+            autoAlpha: 0,
+            duration: 0.001,
+            stagger: { each: 0.022 },
+            ease: "none",
+          },
+          "-=0.55"
+        );
+      }
+    });
+
+    return () => mm.revert();
+  }, []);
+
   return (
     <section id="top" className="relative pt-16 md:pt-28 pb-24 md:pb-40">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
@@ -33,18 +73,38 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Display name */}
-        <h1 className="display text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[14rem] leading-[0.85] rise">
-          Yash<span className="text-ember">.</span>
-          <br />
-          <span className="italic font-light pl-[8vw]">Arya</span>
+        {/* Display name — overflow-hidden wrappers create the clip mask */}
+        <h1 className="display text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[14rem] leading-[0.85]">
+          <span className="block overflow-hidden">
+            <span ref={yashRef} className="block">
+              Yash<span className="text-ember">.</span>
+            </span>
+          </span>
+          <span className="block overflow-hidden pb-[0.12em]">
+            <span ref={aryaRef} className="block italic font-light pl-[8vw]">
+              Arya
+            </span>
+          </span>
         </h1>
 
         {/* Tagline + role band */}
         <div className="mt-12 md:mt-20 grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 md:col-span-7">
-            <p className="text-2xl md:text-3xl leading-snug max-w-[28ch] tracking-tight text-ink">
-              {profile.tagline}
+            <p
+              ref={taglineRef}
+              className="text-sm md:text-base leading-relaxed max-w-[52ch] tracking-normal text-ink2"
+              aria-label={profile.tagline}
+            >
+              {profile.tagline.split("").map((char, i) => (
+                <span
+                  key={i}
+                  className="tl-char"
+                  style={{ display: "inline" }}
+                  aria-hidden="true"
+                >
+                  {char === " " ? "\u00a0" : char}
+                </span>
+              ))}
             </p>
           </div>
           <div className="col-span-12 md:col-span-5 md:text-right">
