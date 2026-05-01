@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yash-arya.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yasharya.dev";
 const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? "";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f6f1e9",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
