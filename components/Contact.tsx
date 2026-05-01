@@ -89,7 +89,7 @@ export function Contact() {
 
         <h2
           ref={headlineRef}
-          className="mt-8 display text-[14vw] md:text-[10vw] leading-[0.9] tracking-tightest"
+          className="mt-8 display text-[13vw] md:text-[10vw] leading-[0.9] tracking-tightest"
         >
           {/* Each line wrapped in overflow-hidden clip + inner .cta-line span */}
           <span className="block overflow-hidden pb-[0.06em]">
@@ -122,7 +122,7 @@ export function Contact() {
             <a
               ref={emailRef}
               href={`mailto:${links.email}`}
-              className="display text-3xl md:text-5xl link-u"
+              className="display text-2xl sm:text-3xl md:text-5xl link-u break-all"
             >
               {links.email}
             </a>
