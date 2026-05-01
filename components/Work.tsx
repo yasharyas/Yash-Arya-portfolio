@@ -203,11 +203,8 @@ export function Work() {
               <span
                 className="card-border-highlight absolute inset-x-0 top-0 h-px bg-ink pointer-events-none"
                 style={{ opacity: 0 }}
-              />              {/* Hover border highlight — opacity-only, no paint cost */}
-              <span
-                className="card-border-highlight absolute inset-x-0 top-0 h-px bg-ink pointer-events-none"
-                style={{ opacity: 0 }}
-              />              {/* Left rail */}
+              />
+              {/* Left rail */}
               <div className="col-span-12 md:col-span-2">
                 <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-ember">
                   {p.index}
@@ -290,16 +287,16 @@ export function Work() {
                   href={o.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid grid-cols-12 gap-4 py-5 group"
+                  className="grid grid-cols-12 gap-x-4 gap-y-1 py-5 group"
                 >
-                  <span className="col-span-7 md:col-span-5 text-lg text-ink group-hover:text-ember transition-colors">
+                  <span className="col-span-9 md:col-span-5 text-base md:text-lg text-ink group-hover:text-ember transition-colors">
                     {o.name}
                   </span>
-                  <span className="col-span-3 md:col-span-5 text-sm text-ink2 truncate">
-                    {o.note}
-                  </span>
-                  <span className="col-span-2 md:col-span-2 text-right font-mono text-xs text-muted">
+                  <span className="col-span-3 md:col-span-2 md:order-3 text-right font-mono text-xs text-muted">
                     {o.year}
+                  </span>
+                  <span className="col-span-12 md:col-span-5 md:order-2 text-sm text-ink2 md:truncate">
+                    {o.note}
                   </span>
                 </a>
               </li>
