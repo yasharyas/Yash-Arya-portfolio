@@ -44,10 +44,12 @@ export function Nav() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 h-14 flex items-center justify-between">
         <Link
           href="#top"
-          className="flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase"
+          className="flex items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase"
         >
-          <img src="/marks/monogram.svg" alt="" width={28} height={28} aria-hidden="true" />
-          Yash Arya<span className="text-ember"> · </span>Index 2026
+          <img src="/marks/monogram.svg" alt="" width={24} height={24} aria-hidden="true" className="sm:w-7 sm:h-7" />
+          <span className="whitespace-nowrap">
+            Yash Arya<span className="hidden sm:inline"><span className="text-ember"> · </span>Index 2026</span>
+          </span>
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-[12px] tracking-wide text-ink2">
           {items.map((i) => (
@@ -58,7 +60,7 @@ export function Nav() {
         </nav>
         <a
           href={`mailto:${links.email}`}
-          className="text-[11px] tracking-[0.2em] uppercase font-mono link-u"
+          className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase font-mono link-u whitespace-nowrap"
         >
           Available →
         </a>
