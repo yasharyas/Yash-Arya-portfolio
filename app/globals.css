@@ -12,6 +12,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body {
@@ -19,7 +20,12 @@ body {
   color: #1a1814;
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
+
+/* Prevent any descendant from causing horizontal scroll on mobile */
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
 
 /* Subtle paper grain — purposeful, not decorative noise */
 body::before {
