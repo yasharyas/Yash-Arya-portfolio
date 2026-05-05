@@ -6,6 +6,51 @@
   --font-display: "Instrument Serif", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* ── Editorial light palette (RGB triplets for Tailwind opacity) ── */
+  --paper-rgb: 246 241 233;   /* warm off-white background */
+  --ink-rgb:    26  24  20;   /* near-black, warm tint */
+  --ink2-rgb:   58  53  45;   /* secondary text */
+  --muted-rgb: 138 130 117;   /* tertiary text */
+  --rule-rgb:  217 210 196;   /* hairlines */
+  --ember-rgb: 210  78  29;   /* single accent */
+  --cream-rgb: 236 228 211;   /* panel */
+
+  /* Theme-aware overlays + selection */
+  --grain-opacity: 0.035;
+  --selection-bg: 26 24 20;
+  --selection-fg: 246 241 233;
+  --plate-tint: rgba(236, 228, 211, 0.22);
+  --status-bg: rgba(210, 78, 29, 0.06);
+  --status-border: rgba(210, 78, 29, 0.35);
+}
+
+html.dark {
+  /* ── Warm editorial night — deep charcoal, amber-touched ── */
+  --paper-rgb:  22  18  14;   /* warm charcoal — like aged dark leather */
+  --ink-rgb:   238 229 212;   /* rich warm ivory text */
+  --ink2-rgb:  188 176 156;   /* warm sand secondary */
+  --muted-rgb: 112 103  90;   /* warm grey-brown tertiary */
+  --rule-rgb:   52  46  35;   /* barely visible warm separator */
+  --ember-rgb: 226  88  40;   /* warmer ember — stands out on dark bg */
+  --cream-rgb:  32  28  21;   /* dark warm card / panel */
+
+  --grain-opacity: 0.065;
+  --selection-bg: 226 88 40;
+  --selection-fg: 22 18 14;
+  --plate-tint: rgba(32, 28, 21, 0.45);
+  --status-bg: rgba(226, 88, 40, 0.09);
+  --status-border: rgba(226, 88, 40, 0.42);
+}
+
+/* ── Always-dark surface override for #contact / footer ─────────────
+   In dark mode `bg-ink` flips to cream (ink = text = cream in dark).
+   Scoping the palette vars here forces these sections to always show
+   the original ink-on-paper "printed dark" look regardless of theme. */
+html.dark #contact,
+html.dark footer {
+  --ink-rgb:   10   8   6;    /* near-black bg for contrast with page */
+  --paper-rgb: 238 229 212;   /* keep cream text readable */
 }
 
 html {
@@ -16,12 +61,13 @@ html {
 }
 
 body {
-  background-color: #f6f1e9;
-  color: #1a1814;
+  background-color: rgb(var(--paper-rgb));
+  color: rgb(var(--ink-rgb));
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Prevent any descendant from causing horizontal scroll on mobile */
@@ -34,18 +80,22 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.035;
+  opacity: var(--grain-opacity);
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  transition: opacity 0.4s ease;
+}
+html.dark body::before {
+  mix-blend-mode: screen;
 }
 
 main, header, footer, section { position: relative; z-index: 1; }
 
 /* Selection */
-::selection { background: #1a1814; color: #f6f1e9; }
+::selection { background: rgb(var(--selection-bg)); color: rgb(var(--selection-fg)); }
 
 /* Hairline rules */
-.rule { background-color: #d9d2c4; height: 1px; width: 100%; }
+.rule { background-color: rgb(var(--rule-rgb)); height: 1px; width: 100%; }
 
 /* Animated underline link */
 .link-u {
@@ -100,4 +150,162 @@ main, header, footer, section { position: relative; z-index: 1; }
   font-weight: 400;
   letter-spacing: -0.025em;
   line-height: 0.95;
+}
+
+/* ── Custom cursor ──────────────────────────────────────────────────── */
+.custom-cursor,
+.custom-cursor * {
+  cursor: none !important;
+}
+
+/* ── Available status indicator — dual-ring radar pulse ───────────── */
+/* Replaces the old single-ring `available-dot`. The wrapper carries two   */
+/* concentric rings via ::before and ::after, pulsing on a 2.4 s cycle    */
+/* offset by 1.2 s for a steady radar/heartbeat feel. The outer pill gives */
+/* the indicator a deliberate "status badge" weight without being loud.   */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px 5px 14px;
+  border-radius: 999px;
+  background: var(--status-bg);
+  border: 1px solid var(--status-border);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.status-pill:hover {
+  background: rgba(var(--ember-rgb) / 0.12);
+  transform: translateY(-1px);
+}
+
+.status-indicator {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+.status-indicator::before,
+.status-indicator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(var(--ember-rgb));
+  opacity: 0;
+  animation: status-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.status-indicator::after {
+  animation-delay: 1.2s;
+}
+.status-indicator > span {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: rgb(var(--ember-rgb));
+  box-shadow: 0 0 6px rgba(var(--ember-rgb) / 0.6);
+}
+
+@keyframes status-ring {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  80%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Legacy class kept as alias in case any markup still uses it */
+.available-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgb(var(--ember-rgb));
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(var(--ember-rgb) / 0.55);
+  animation: pulse-dot 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--ember-rgb) / 0.55); }
+  60%      { box-shadow: 0 0 0 6px rgba(var(--ember-rgb) / 0); }
+}
+
+/* ── Nav active section link ───────────────────────────────────────── */
+.nav-active {
+  color: rgb(var(--ember-rgb)) !important;
+}
+
+/* ── Skill pill tags ───────────────────────────────────────────────── */
+/* Replaces the old dot-separated inline list style.                   */
+/* GSAP queries .skill-tag and animates scale + backgroundColor on it. */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: rgb(var(--ink2-rgb));
+  background-color: rgb(var(--paper-rgb));
+  border: 1px solid rgb(var(--rule-rgb));
+  border-radius: 2px;
+  line-height: 1.6;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+html.dark .skill-tag {
+  background-color: rgb(var(--cream-rgb));
+  border-color: rgb(var(--rule-rgb));
+  color: rgb(var(--ink2-rgb));
+}
+
+/* ── Theme toggle button ──────────────────────────────────────────── */
+.theme-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 999px;
+  border: 1px solid rgb(var(--rule-rgb));
+  background: transparent;
+  color: rgb(var(--ink2-rgb));
+  cursor: pointer; padding: 0; flex-shrink: 0;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-icon-btn:hover {
+  color: rgb(var(--ink-rgb));
+  border-color: rgb(var(--ember-rgb));
+  transform: rotate(15deg);
+}
+.theme-icon-btn svg {
+  width: 14px; height: 14px; pointer-events: none;
+}
+.icon-moon { display: block; }
+.icon-sun  { display: none; }
+html.dark .icon-moon { display: none; }
+html.dark .icon-sun  { display: block; }
+
+/* ── Project card 3-D perspective context ──────────────────────────── */
+/* The .project-plate-wrap inside each card tilts in this 3-D space.   */
+.project-card {
+  perspective: 1100px;
+}
+
+/* ── PFP hover pulse ring ───────────────────────────────────────────── */
+/* Positioned absolutely inside the avatar wrapper. GSAP loops it on   */
+/* mouseenter (scale 1→1.5, opacity 0.7→0). Reset + killed on leave.   */
+.pfp-ring {
+  pointer-events: none;
+  border: 2px solid rgb(var(--ember-rgb));
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Responsive overflow guards ────────────────────────────────────── */
+/* Catch any element that may bleed past the viewport on small screens  */
+*,
+*::before,
+*::after {
+  min-width: 0;
+}
+
+/* Status pill height matches the theme toggle (34 px) on all sizes */
+.status-pill {
+  min-height: 34px;
 }
