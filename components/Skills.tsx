@@ -4,8 +4,12 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { skills } from "@/lib/content";
+import { playTone } from "@/lib/audio";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Pill hover: crisp sine tink (1100 → 880 Hz, 60 ms)
+const playTick = () => playTone(1100, 880, 0.055, 0.06, "sine");
 
 export function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,11 +58,16 @@ export function Skills() {
       // ── Skill pill hover: background flash + scale pulse ─────────────────────
       // mouseenter → quick scale to 1.12 (back.out overshoot) + bg flash
       // mouseleave → scale back to 1
-      // Listeners are torn down via the mm handler's return function so they
-      // clean up when prefers-reduced-motion changes or component unmounts.
+      // Colours are resolved at event time so they stay correct after a
+      // theme toggle (dark ↔ light) without needing a re-mount.
+      const isDarkTheme  = () => document.documentElement.classList.contains("dark");
+      const getPillBase  = () => isDarkTheme() ? "rgb(32 28 21)"  : "#f6f1e9";
+      const getPillFlash = () => isDarkTheme() ? "rgb(46 40 30)"  : "#ece4d3";
+
       const teardowns: Array<() => void> = [];
       tags.forEach((tag) => {
         const onEnter = () => {
+          playTick();
           // Scale pulse — back.out(2) gives a tactile overshoot
           gsap.to(tag, {
             scale: 1.12,
@@ -66,12 +75,12 @@ export function Skills() {
             ease: "back.out(2)",
             overwrite: "auto",
           });
-          // Background flash: transparent → subtle tint → transparent
+          // Background flash: pill-base → flash → pill-base
           gsap.fromTo(
             tag,
-            { backgroundColor: "rgba(0,0,0,0)" },
+            { backgroundColor: getPillBase() },
             {
-              backgroundColor: "rgba(0,0,0,0.07)",
+              backgroundColor: getPillFlash(),
               duration: 0.14,
               ease: "power1.out",
               yoyo: true,
@@ -82,7 +91,7 @@ export function Skills() {
         const onLeave = () => {
           gsap.to(tag, {
             scale: 1,
-            backgroundColor: "rgba(0,0,0,0)",
+            backgroundColor: getPillBase(),
             duration: 0.25,
             ease: "power2.out",
             overwrite: "auto",
@@ -124,7 +133,7 @@ export function Skills() {
                 {s.items.map((it) => (
                   <li
                     key={it}
-                    className="skill-tag text-ink2 after:content-['·'] after:text-muted after:mx-2 last:after:content-['']"
+                    className="skill-tag"
                   >
                     {it}
                   </li>
