@@ -88,7 +88,7 @@ export function ThemeToggle() {
       <button
         type="button"
         aria-label="Toggle theme"
-        className="theme-icon-btn"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rule text-ink2"
       />
     );
   }
@@ -100,10 +100,10 @@ export function ThemeToggle() {
       onClick={onClick}
       aria-label="Toggle theme"
       title="Toggle theme"
-      className="theme-icon-btn"
+      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rule text-ink2 transition-colors hover:bg-cream/50 hover:text-ink"
     >
       <svg
-        className="icon-moon"
+        className="h-4 w-4 dark:hidden"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -115,7 +115,7 @@ export function ThemeToggle() {
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
       </svg>
       <svg
-        className="icon-sun"
+        className="hidden h-4 w-4 dark:block"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

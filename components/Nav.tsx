@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { links } from "@/lib/content";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
@@ -58,12 +59,15 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <a
-          href={`mailto:${links.email}`}
-          className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase font-mono link-u whitespace-nowrap"
-        >
-          Available →
-        </a>
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <ThemeToggle />
+          <a
+            href={`mailto:${links.email}`}
+            className="text-[9px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.2em] uppercase font-mono link-u whitespace-nowrap"
+          >
+            Available →
+          </a>
+        </div>
       </div>
     </header>
   );
