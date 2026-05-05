@@ -90,8 +90,7 @@ export function Credentials() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-40"
-      style={{ backgroundColor: "rgba(236,228,211,0.22)" }}
+      className="py-24 md:py-40 bg-cream/20"
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">

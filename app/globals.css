@@ -35,12 +35,13 @@ html {
 }
 
 body {
-  background-color: #f6f1e9;
-  color: #1a1814;
+  background-color: rgb(var(--paper-rgb));
+  color: rgb(var(--ink-rgb));
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Prevent any descendant from causing horizontal scroll on mobile */
@@ -61,10 +62,10 @@ body::before {
 main, header, footer, section { position: relative; z-index: 1; }
 
 /* Selection */
-::selection { background: #1a1814; color: #f6f1e9; }
+::selection { background: rgb(var(--ink-rgb)); color: rgb(var(--paper-rgb)); }
 
 /* Hairline rules */
-.rule { background-color: #d9d2c4; height: 1px; width: 100%; }
+.rule { background-color: rgb(var(--rule-rgb)); height: 1px; width: 100%; }
 
 /* Animated underline link */
 .link-u {
