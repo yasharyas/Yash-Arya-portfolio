@@ -96,6 +96,8 @@ export function Hero() {
                 height={108}
                 className="rounded-full grayscale"
                 style={{ filter: "grayscale(1) contrast(1.05)" }}
+                fetchPriority="high"
+                loading="eager"
               />
               {/* Pulsating ring — GSAP loops it on hover */}
               <span ref={ringRef} className="pfp-ring absolute inset-0" aria-hidden="true" />
@@ -130,8 +132,9 @@ export function Hero() {
             <p
               ref={taglineRef}
               className="text-sm md:text-base leading-relaxed max-w-[52ch] tracking-normal text-ink2"
-              aria-label={profile.tagline}
             >
+              {/* Screen-reader reads the sr-only span; animated chars are hidden from AT */}
+              <span className="sr-only">{profile.tagline}</span>
               {profile.tagline.split("").map((char, i) => (
                 <span
                   key={i}

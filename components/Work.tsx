@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { featured, otherProjects } from "@/lib/content";
 import { ProjectPlate } from "./ProjectPlate";
-import { playClockTick } from "@/lib/audio";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -119,9 +118,6 @@ export function Work() {
         // Mockup: scale-up 0.96 → 1 + subtle parallax Y, scrubbed
         const plate = card.querySelector<HTMLElement>(".project-plate-wrap");
         if (plate) {
-          // Enable 3-D perspective for the tilt effect
-          gsap.set(plate, { transformPerspective: 900 });
-
           gsap.fromTo(
             plate,
             { scale: 0.96 },
@@ -152,39 +148,15 @@ export function Work() {
           );
         }
 
-        // Hover: lift + 3-D perspective tilt on mockup
-        const leftAccent = card.querySelector<HTMLElement>(".card-left-accent");
-
-        // Keep a per-card reference so onLeave can remove the specific listener
-        let tiltCleanup: (() => void) | null = null;
-
-        const onMouseMove = (e: MouseEvent) => {
-          if (!plate) return;
-          const rect = card.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;  // –1 to 1
-          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-          gsap.to(plate, {
-            rotateY: x * 6,
-            rotateX: -y * 4,
-            duration: 0.28,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-        };
-
+        // Hover: lift + border fade (opacity-only — no repaint)
+        const highlight = card.querySelector<HTMLElement>(".card-border-highlight");
         const onEnter = () => {
-          playClockTick();
           gsap.to(card, { y: -5, duration: 0.25, ease: "power2.out", overwrite: "auto" });
-          if (leftAccent) gsap.to(leftAccent, { opacity: 1, duration: 0.2, ease: "power2.out", overwrite: "auto" });
-          card.addEventListener("mousemove", onMouseMove);
-          tiltCleanup = () => card.removeEventListener("mousemove", onMouseMove);
+          if (highlight) gsap.to(highlight, { autoAlpha: 1, duration: 0.2, ease: "power2.out", overwrite: "auto" });
         };
         const onLeave = () => {
           gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
-          if (leftAccent) gsap.to(leftAccent, { opacity: 0.12, duration: 0.35, ease: "power2.out", overwrite: "auto" });
-          if (plate) gsap.to(plate, { rotateY: 0, rotateX: 0, duration: 0.5, ease: "power2.out", overwrite: "auto" });
-          tiltCleanup?.();
-          tiltCleanup = null;
+          if (highlight) gsap.to(highlight, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         };
 
         card.addEventListener("mouseenter", onEnter);
@@ -192,7 +164,6 @@ export function Work() {
         teardowns.push(() => {
           card.removeEventListener("mouseenter", onEnter);
           card.removeEventListener("mouseleave", onLeave);
-          tiltCleanup?.();
         });
       });
 
@@ -203,7 +174,7 @@ export function Work() {
   }, []);
 
   return (
-    <section id="work" className="py-24 md:py-40 border-b border-rule" style={{ backgroundColor: "var(--plate-tint)" }}>
+    <section id="work" className="py-24 md:py-40">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-20">
           <p
@@ -226,12 +197,12 @@ export function Work() {
           {featured.map((p, i) => (
             <article
               key={p.index}
-              className="project-card relative grid grid-cols-12 gap-6 border-t border-rule py-12 md:py-20 pl-5 md:pl-8"
+              className="project-card relative grid grid-cols-12 gap-6 border-t border-rule py-12 md:py-20"
             >
-              {/* Timeline: ember left rail — dim track always visible, glows on hover */}
+              {/* Hover border highlight — opacity-only, no paint cost */}
               <span
-                className="card-left-accent absolute inset-y-0 left-0 w-0.5 bg-ember pointer-events-none"
-                style={{ opacity: 0.12 }}
+                className="card-border-highlight absolute inset-x-0 top-0 h-px bg-ink pointer-events-none"
+                style={{ opacity: 0 }}
               />
               {/* Left rail */}
               <div className="col-span-12 md:col-span-2">

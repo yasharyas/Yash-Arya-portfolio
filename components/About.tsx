@@ -5,11 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { profile, stats, education } from "@/lib/content";
 
-
 gsap.registerPlugin(ScrollTrigger);
-
-// Counter tick: punchy triangle tink (1240 → 980 Hz, 60 ms)
-
 
 export function About() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -78,11 +74,7 @@ export function About() {
         section.querySelectorAll<HTMLElement>(".stat-value")
       );
       if (statsStrip && statEls.length) {
-        type StatProxy = {
-          val: number;
-          el: HTMLElement;
-          suffix: string;
-        };
+        type StatProxy = { val: number; el: HTMLElement; suffix: string };
         const proxies: StatProxy[] = statEls.map((el) => ({
           val: 0,
           el,
@@ -154,6 +146,7 @@ export function About() {
                 height={460}
                 className="w-full h-auto"
                 style={{ filter: "grayscale(1) contrast(1.04)" }}
+                loading="lazy"
               />
               <figcaption className="mt-3 font-mono text-[10px] tracking-[0.22em] uppercase text-muted">
                 Yash Arya · Faridabad, IN
@@ -182,7 +175,6 @@ export function About() {
                   className="stat-value display text-6xl md:text-7xl text-ink"
                   data-count={countNum}
                   data-suffix={countSuffix}
-                  data-label={s.label}
                 >
                   {s.value}
                 </p>

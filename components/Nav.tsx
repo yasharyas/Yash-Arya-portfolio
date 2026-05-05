@@ -3,11 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { links } from "@/lib/content";
-import { ThemeToggle } from "./ThemeToggle";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
@@ -29,41 +25,15 @@ export function Nav() {
       });
     });
 
-    // Active-section tracking — independent of motion preference.
-    // Each ScrollTrigger adds/removes .nav-active on the matching link
-    // while the section straddles the 50% viewport mark.
-    const triggers: ReturnType<typeof ScrollTrigger.create>[] = [];
-    const sectionIds = ["work", "about", "experience", "skills", "contact"];
-
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-      const link = navRef.current?.querySelector<HTMLElement>(
-        `a[data-section="${id}"]`
-      );
-      if (!section || !link) return;
-
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 55%",
-          end: "bottom 45%",
-          toggleClass: { targets: link, className: "nav-active" },
-        })
-      );
-    });
-
-    return () => {
-      mm.revert();
-      triggers.forEach((t) => t.kill());
-    };
+    return () => mm.revert();
   }, []);
 
   const items = [
-    { label: "Work", href: "#work", section: "work" },
-    { label: "About", href: "#about", section: "about" },
-    { label: "Experience", href: "#experience", section: "experience" },
-    { label: "Skills", href: "#skills", section: "skills" },
-    { label: "Contact", href: "#contact", section: "contact" },
+    { label: "Work", href: "#work" },
+    { label: "About", href: "#about" },
+    { label: "Experience", href: "#experience" },
+    { label: "Skills", href: "#skills" },
+    { label: "Contact", href: "#contact" },
   ];
 
   return (
@@ -83,29 +53,17 @@ export function Nav() {
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-[12px] tracking-wide text-ink2">
           {items.map((i) => (
-            <a
-              key={i.href}
-              href={i.href}
-              data-section={i.section}
-              className="link-u transition-colors duration-200"
-            >
+            <a key={i.href} href={i.href} className="link-u">
               {i.label}
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <a
-            href={`mailto:${links.email}`}
-            className="status-pill font-mono text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-ink whitespace-nowrap"
-          >
-            <span className="status-indicator" aria-hidden="true">
-              <span />
-            </span>
-            <span className="hidden sm:inline">Available</span>
-            <span className="text-ember">→</span>
-          </a>
-          <ThemeToggle />
-        </div>
+        <a
+          href={`mailto:${links.email}`}
+          className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase font-mono link-u whitespace-nowrap"
+        >
+          Available →
+        </a>
       </div>
     </header>
   );

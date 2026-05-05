@@ -103,12 +103,12 @@ export function Contact() {
           </span>
         </h2>
 
-        {/* CTA button — filled ember on entry, darkens on hover */}
+        {/* CTA button — entry animation: scale 0.8 → 1, back.out(1.7) */}
         <div className="mt-12">
           <a
             ref={ctaRef}
             href={`mailto:${links.email}`}
-            className="inline-flex items-center gap-3 bg-ember text-paper font-mono text-[11px] tracking-[0.22em] uppercase px-8 py-4 transition-colors duration-300 hover:bg-[#b8401a]"
+            className="inline-flex items-center gap-3 border border-paper/30 text-paper font-mono text-[11px] tracking-[0.22em] uppercase px-8 py-4 hover:bg-paper/10 transition-colors"
           >
             Start a project
           </a>
