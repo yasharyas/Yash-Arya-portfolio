@@ -5,9 +5,11 @@ import gsap from "gsap";
 import { profile, links } from "@/lib/content";
 
 export function Hero() {
-  const yashRef = useRef<HTMLSpanElement>(null);
-  const aryaRef = useRef<HTMLSpanElement>(null);
+  const yashRef   = useRef<HTMLSpanElement>(null);
+  const aryaRef   = useRef<HTMLSpanElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
+  const avatarRef  = useRef<HTMLDivElement>(null);
+  const ringRef    = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -36,6 +38,39 @@ export function Hero() {
           "-=0.55"
         );
       }
+
+      // ── PFP hover pulsating ring ────────────────────────────────────────────
+      // A single ring element (`.pfp-ring`) sits absolutely inside the avatar
+      // wrapper. On mouseenter it loops: scale 1→1.45, opacity 0.75→0.
+      // On mouseleave the loop is killed and the ring is instantly reset.
+      const avatarEl = avatarRef.current;
+      const ringEl   = ringRef.current;
+      if (avatarEl && ringEl) {
+        gsap.set(ringEl, { scale: 1, opacity: 0 });
+        let ringAnim: gsap.core.Tween | null = null;
+
+        const onAvatarEnter = () => {
+          ringAnim?.kill();
+          ringAnim = gsap.fromTo(
+            ringEl,
+            { scale: 1, opacity: 0.75 },
+            { scale: 1.45, opacity: 0, duration: 1.1, ease: "power2.out", repeat: -1 }
+          );
+        };
+        const onAvatarLeave = () => {
+          ringAnim?.kill();
+          ringAnim = null;
+          gsap.set(ringEl, { scale: 1, opacity: 0 });
+        };
+        avatarEl.addEventListener("mouseenter", onAvatarEnter);
+        avatarEl.addEventListener("mouseleave", onAvatarLeave);
+
+        return () => {
+          avatarEl.removeEventListener("mouseenter", onAvatarEnter);
+          avatarEl.removeEventListener("mouseleave", onAvatarLeave);
+          ringAnim?.kill();
+        };
+      }
     });
 
     return () => mm.revert();
@@ -45,7 +80,7 @@ export function Hero() {
     <section id="top" className="relative pt-16 md:pt-28 pb-24 md:pb-40">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         {/* Top meta row */}
-        <div className="grid grid-cols-12 gap-6 mb-14 md:mb-24 items-start">
+        <div className="grid grid-cols-12 gap-6 mb-6 md:mb-12 items-start">
           <div className="col-span-6 md:col-span-3">
             <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted">
               Index — N° 001
@@ -53,23 +88,25 @@ export function Hero() {
             <p className="mt-2 text-sm text-ink2">{profile.location}</p>
           </div>
           <div className="hidden md:flex col-span-6 justify-center">
-            <div className="relative">
+            <div ref={avatarRef} className="relative">
               <img
                 src="/avatar.jpg"
                 alt="Yash Arya"
-                width={72}
-                height={72}
+                width={108}
+                height={108}
                 className="rounded-full grayscale"
                 style={{ filter: "grayscale(1) contrast(1.05)" }}
               />
-              <span className="absolute -right-1 -bottom-1 w-3 h-3 rounded-full bg-ember ring-2 ring-paper" />
+              {/* Pulsating ring — GSAP loops it on hover */}
+              <span ref={ringRef} className="pfp-ring absolute inset-0" aria-hidden="true" />
+              <span className="absolute -right-1 -bottom-1 w-3.5 h-3.5 rounded-full bg-ember ring-2 ring-paper" />
             </div>
           </div>
           <div className="col-span-6 md:col-span-3 md:text-right">
             <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted">
               Edition
             </p>
-            <p className="mt-2 text-sm text-ink2">Apr 2026 — Spring</p>
+            <p className="mt-2 text-sm text-ink2">May 2026 — Spring</p>
           </div>
         </div>
 
