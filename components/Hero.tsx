@@ -126,6 +126,13 @@ export function Hero() {
           </span>
         </h1>
 
+        {/* Role identifier — anchors the name for first-time visitors */}
+        <p className="mt-6 font-mono text-[11px] tracking-[0.25em] uppercase text-muted">
+          {profile.role}
+          <span className="mx-2 text-ember not-italic">·</span>
+          {profile.subroles.slice(0, 2).join(" · ")}
+        </p>
+
         {/* Tagline + role band */}
         <div className="mt-12 md:mt-20 grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 md:col-span-7">
