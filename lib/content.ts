@@ -4,7 +4,7 @@ export const profile = {
   name: "Yash Arya",
   role: "Full Stack Developer",
   subroles: ["Web3", "AI / ML", "VS Code Extension Developer"],
-  location: "Faridabad · New Delhi, India",
+  location: "New Delhi, India",
   status:
     "B.Tech CSE @ Bennett University (2022–2026) · Frontend Engineering Intern @ Pelocal Fintech",
   avatar: "https://avatars.githubusercontent.com/u/123353688?v=4",
