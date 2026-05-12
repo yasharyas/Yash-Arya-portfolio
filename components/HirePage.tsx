@@ -15,41 +15,33 @@ const services = [
     num: "01",
     category: "Conversion",
     title: "Landing Pages",
-    body: "Single-page sites built to convert. Fast, mobile-first, above-the-fold clarity. Next.js + Tailwind. Typically live in 1–2 weeks.",
-    deliverables: ["Responsive landing page", "Performance-tuned build", "Copy structure + CTA hierarchy"],
-    proof: "ShoeStore: +25% mobile engagement vs. desktop-first v1 · sub-300ms load",
+    body: "The hero has 5 seconds to say what you do and why it matters. Most don't. I build Next.js landing pages that communicate value fast — clear structure, sharp copy layout, and motion that doesn't get in the way. Built for SaaS tools and AI platforms that need to convert visitors, not just impress them.",
+    deliverables: ["Hero + feature sections", "Pricing and FAQ blocks", "CTA flow + form integration"],
+    proof: "",
   },
   {
     num: "02",
     category: "Brand Web",
     title: "Marketing Sites",
-    body: "Multi-page sites for startups that need a serious web presence. Clear information architecture, subtle motion, and a design that doesn't look like a template.",
-    deliverables: ["2–6 page site", "CMS integration (optional)", "SEO-ready markup"],
-    proof: "AagniPharma: full corporate site — pipeline, focus areas, news section",
+    body: "More than a landing page — a full web presence. Multi-page sites for brands that need to look serious before a prospect ever reaches the contact form. Built with Next.js, optimised for performance, and designed to hold up at scale.",
+    deliverables: ["Full multi-page architecture", "Content management ready", "SEO structure + performance"],
+    proof: "AGNIJ Pharmaceuticals: full brand site, product catalogue, quote flow — live at agnijpharma.com",
   },
   {
     num: "03",
     category: "Product",
     title: "SaaS Frontend",
-    body: "Dashboards, onboarding flows, and data-heavy UI for SaaS products. TanStack Query + Table, Zod validation, auth flows. Built for real scale.",
-    deliverables: ["Dashboard architecture", "Form + validation flows", "Data tables + filters"],
+    body: "Dashboards, admin panels, and data-heavy UIs that don't slow down under real load. TanStack Query, TanStack Table, Zod validation, sub-300ms renders on thousand-row tables. Built for founders who need the product to work as well as it looks.",
+    deliverables: ["React + TypeScript dashboard", "Real-time data views", "Form-heavy workflow UI"],
     proof: "Pelocal: 8 modules · 1k-row tables at sub-300ms · ~2% backend rejection rate",
   },
   {
     num: "04",
     category: "Rescue",
-    title: "Revamps",
-    body: "Slow, outdated, or hard-to-maintain site? I rebuild it: faster, cleaner, and actually usable on mobile. Bring what you have — I'll bring a plan.",
-    deliverables: ["Performance audit", "Rebuilt frontend", "Mobile-first responsive"],
-    proof: "Legacy form revamp: 5-step Zod flow cut drop-off ~25% vs. single-page v1",
-  },
-  {
-    num: "05",
-    category: "0 → 1",
-    title: "Full-Stack MVPs",
-    body: "From whiteboard to deployed. API, auth, database, frontend. MERN or Next.js full-stack — built to be handed off, not just demoed.",
-    deliverables: ["Full-stack app", "API + DB + auth", "Deploy + README + handoff docs"],
-    proof: "ShoeStore: Stripe + Strapi + Cloudinary · Tutor: Gemini SSE streaming · CEL portal: 12 REST endpoints",
+    title: "Site Revamps",
+    body: "Your product has outgrown your website. The design is dated, the copy doesn't land, and the mobile experience is an afterthought. I take existing sites and rebuild them — same brand, better everything. Faster load, cleaner layout, copy that actually sells.",
+    deliverables: ["Full frontend rebuild", "Copy restructure", "Performance audit + fixes"],
+    proof: "",
   },
 ];
 
@@ -443,8 +435,7 @@ export function HirePage() {
           Services · What I Build
         </p>
         <h2 data-reveal className="display text-4xl md:text-6xl lg:text-7xl mt-3 leading-none">
-          Five ways to<span className="text-ember italic"> hire me</span>
-          <span className="text-ember">.</span>
+          What I build<span className="text-ember">.</span>
         </h2>
         <p data-reveal className="mt-3 font-mono text-[10px] tracking-[0.25em] uppercase text-muted hidden md:block">
           Scroll right to explore →
@@ -495,27 +486,32 @@ export function HirePage() {
               </div>
 
               {/* Proof */}
-              <div className="pt-5 border-t border-rule">
-                <p className="font-mono text-[9px] tracking-[0.25em] uppercase text-muted mb-1.5">
-                  Proof
-                </p>
-                <p className="font-mono text-[10px] text-ink2 leading-relaxed">{s.proof}</p>
-              </div>
+              {s.proof && (
+                <div className="pt-5 border-t border-rule">
+                  <p className="font-mono text-[9px] tracking-[0.25em] uppercase text-muted mb-1.5">
+                    Proof
+                  </p>
+                  <p className="font-mono text-[10px] text-ink2 leading-relaxed">{s.proof}</p>
+                </div>
+              )}
             </div>
           ))}
 
-          {/* Trailing prompt card */}
+          {/* Trailing prompt card — 05 Something else? */}
           <div className="w-full md:w-[500px] lg:w-[540px] md:flex-shrink-0 p-8 md:p-12 flex flex-col justify-center gap-8 md:h-full bg-cream">
-            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-muted">
-              Something else?
-            </p>
-            <h3 className="display text-3xl md:text-4xl leading-tight">
-              Didn't see what you need
-              <span className="text-ember">?</span>
-            </h3>
-            <p className="text-sm text-ink2 leading-relaxed max-w-[30ch]">
-              I've shipped inventory systems, hospital information platforms, and government job
-              portals. If it runs on the web, I can probably build it.
+            <span className="display text-7xl leading-none text-rule/60 select-none">05</span>
+            <div>
+              <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-ember mb-3">
+                Open
+              </p>
+              <h3 className="display text-3xl md:text-4xl leading-tight">
+                Something else<span className="text-ember">?</span>
+              </h3>
+            </div>
+            <p className="text-sm text-ink2 leading-relaxed max-w-[32ch]">
+              I have shipped inventory systems, healthcare platforms, and government portals.
+              If it runs on the web, I can probably build it. Tell me what you need and I will
+              tell you if I am the right person for it.
             </p>
             <a
               href="mailto:yasharyas@proton.me"
@@ -596,18 +592,7 @@ export function HirePage() {
             ))}
           </div>
 
-          <div className="pt-8 border-t border-rule hidden">
-            <div className="flex flex-wrap gap-x-10 gap-y-3">
-              {([] as string[]).map((c) => (
-                <span
-                  key={c}
-                  className="font-mono text-[10px] tracking-[0.14em] text-ink2"
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
-          </div>
+
         </div>
       </section>
 
@@ -633,8 +618,9 @@ export function HirePage() {
 
             <div className="cta-body space-y-8">
               <p className="cta-body-el text-base text-paper/50 max-w-[50ch] leading-relaxed">
-                Available for full-stack contracts, MVP builds, and frontend engineering
-                work. Based in New Delhi, works remotely with async-first teams.
+                Available for landing page projects, full site builds, and SaaS frontend
+                work. Based in New Delhi, works async with remote teams worldwide.
+                Responds within 24 hours.
               </p>
 
               <div className="cta-body-el flex flex-wrap gap-5 items-center">
