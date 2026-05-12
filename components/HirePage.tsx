@@ -16,6 +16,7 @@ const services = [
     category: "Conversion",
     title: "Landing Pages",
     body: "The hero has 5 seconds to say what you do and why it matters. Most don't. I build Next.js landing pages that communicate value fast — clear structure, sharp copy layout, and motion that doesn't get in the way. Built for SaaS tools and AI platforms that need to convert visitors, not just impress them.",
+    bestFor: "SaaS tools · AI platforms · Early-stage startups",
     deliverables: ["Hero + feature sections", "Pricing and FAQ blocks", "CTA flow + form integration"],
     proof: "",
   },
@@ -24,6 +25,7 @@ const services = [
     category: "Brand Web",
     title: "Marketing Sites",
     body: "More than a landing page — a full web presence. Multi-page sites for brands that need to look serious before a prospect ever reaches the contact form. Built with Next.js, optimised for performance, and designed to hold up at scale.",
+    bestFor: "Pharma · Healthcare · B2B brands · Professional services",
     deliverables: ["Full multi-page architecture", "Content management ready", "SEO structure + performance"],
     proof: "AGNIJ Pharmaceuticals: full brand site, product catalogue, quote flow — live at agnijpharma.com",
   },
@@ -32,6 +34,7 @@ const services = [
     category: "Product",
     title: "SaaS Frontend",
     body: "Dashboards, admin panels, and data-heavy UIs that don't slow down under real load. TanStack Query, TanStack Table, Zod validation, sub-300ms renders on thousand-row tables. Built for founders who need the product to work as well as it looks.",
+    bestFor: "Ops tools · Admin panels · Data-heavy products",
     deliverables: ["React + TypeScript dashboard", "Real-time data views", "Form-heavy workflow UI"],
     proof: "Pelocal: 8 modules · 1k-row tables at sub-300ms · ~2% backend rejection rate",
   },
@@ -40,6 +43,7 @@ const services = [
     category: "Rescue",
     title: "Site Revamps",
     body: "Your product has outgrown your website. The design is dated, the copy doesn't land, and the mobile experience is an afterthought. I take existing sites and rebuild them — same brand, better everything. Faster load, cleaner layout, copy that actually sells.",
+    bestFor: "Products that outgrew their first site",
     deliverables: ["Full frontend rebuild", "Copy restructure", "Performance audit + fixes"],
     proof: "",
   },
@@ -330,102 +334,201 @@ export function HirePage() {
         </div>
       </section>
 
-      {/* ── § 2 FEATURED PROJECT ────────────────────────────────────────────── */}
-      <section id="work" className="py-24 md:py-40 border-b border-rule">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-          <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
-            Production Work · 2025 – 2026
-          </p>
+      {/* ── § 2 FEATURED WORK ─────────────────────────────────────────────── */}
+      <section id="work" className="border-b border-rule">
 
-          <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
-            {/* Left */}
-            <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
-                  Featured
+        {/* ── 2a: AGNIJ — Marketing site, real client ── */}
+        <div className="py-24 md:py-40 border-b border-rule">
+          <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+            <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
+              Marketing Site · Live Client · 2026
+            </p>
+
+            <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
+              {/* Left */}
+              <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
+                    Client Work
+                  </p>
+                  <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
+                    AGNIJ<span className="text-ember">.</span>
+                  </h2>
+                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
+                    Pharmaceuticals Brand Site
+                  </p>
+                </div>
+
+                <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
+                  Full brand website for AGNIJ Pharmaceuticals — product catalogue, therapeutic
+                  category navigation, quote flow, and a trust-first design built for
+                  healthcare professionals and hospital procurement teams.
                 </p>
-                <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
-                  Pelocal<span className="text-ember">.</span>
-                </h2>
-                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
-                  Admin Operations Panel
-                </p>
-              </div>
 
-              <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
-                Sole frontend engineer on a production event-ops dashboard — React + TypeScript
-                managing 100+ events, 500+ menu items, and live customer bookings for MyAnthology
-                and Sammaan Capital.
-              </p>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
+                  {[
+                    { v: "12", l: "Product SKUs catalogued" },
+                    { v: "500+", l: "Hospitals served" },
+                    { v: "Multi-page", l: "Architecture" },
+                    { v: "Live", l: "agnijpharma.com" },
+                  ].map((m) => (
+                    <div key={m.l}>
+                      <p className="display text-2xl leading-none">{m.v}</p>
+                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
+                        {m.l}
+                      </p>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Proof metrics */}
-              <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
-                {[
-                  { v: "sub-300ms", l: "Table load on 1k rows" },
-                  { v: "0", l: "Overbooking incidents" },
-                  { v: "~2%", l: "Backend rejection rate" },
-                  { v: "4h", l: "New page scaffold (was 2d)" },
-                ].map((m) => (
-                  <div key={m.l}>
-                    <p className="display text-2xl leading-none">{m.v}</p>
-                    <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
-                      {m.l}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stack pills */}
-              <div className="flex flex-wrap gap-2">
-                {["React", "TypeScript", "TanStack Query", "TanStack Table", "Zod", "Tailwind"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted"
-                    >
+                <div className="flex flex-wrap gap-2">
+                  {["Next.js", "Tailwind", "TypeScript", "SEO"].map((t) => (
+                    <span key={t} className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted">
                       {t}
                     </span>
-                  )
-                )}
-              </div>
-            </div>
+                  ))}
+                </div>
 
-            {/* Right — screenshot placeholder */}
-            <div className="proj-col-right col-span-12 md:col-span-7">
-              <div className="relative w-full aspect-[16/10] bg-cream border border-rule overflow-hidden">
-                {/* Browser chrome */}
-                <div className="flex items-center gap-1.5 px-4 py-3 border-b border-rule bg-paper/80">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
-                  <span className="ml-4 flex-1 h-4 rounded-sm bg-rule/50 max-w-[180px]" />
-                  <span className="ml-auto font-mono text-[9px] tracking-[0.15em] uppercase text-muted/50">
-                    Live URL →
-                  </span>
-                </div>
-                {/* Placeholder body */}
-                <div className="absolute inset-0 top-[44px] flex flex-col items-center justify-center gap-3">
-                  <div className="w-16 h-px bg-rule" />
-                  <p className="font-mono text-[9px] tracking-[0.28em] uppercase text-muted/50">
-                    Screenshot arriving soon
-                  </p>
-                  <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted/30">
-                    Pelocal · MyAnthology Admin
-                  </p>
-                  <div className="w-16 h-px bg-rule" />
-                </div>
+                <a
+                  href="https://agnijpharma.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-ink text-ink px-5 py-2.5 text-xs font-mono tracking-[0.15em] uppercase hover:bg-ink hover:text-paper transition-colors duration-300"
+                >
+                  agnijpharma.com <span aria-hidden="true">↗</span>
+                </a>
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">
-                  Dec 2025 — Ongoing
-                </span>
-                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">
-                  Pelocal Fintech · Noida
-                </span>
+
+              {/* Right — 3 cropped screenshots stacked */}
+              <div className="proj-col-right col-span-12 md:col-span-7 space-y-2">
+                {/* Hero crop — full width */}
+                <div className="w-full overflow-hidden border border-rule">
+                  <img
+                    src="/projects/agnij/hero.jpg"
+                    alt="AGNIJ Pharmaceuticals — hero section with dark background and headline"
+                    className="w-full h-auto block"
+                    loading="lazy"
+                  />
+                </div>
+                {/* Products + Quality — side by side */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="overflow-hidden border border-rule">
+                    <img
+                      src="/projects/agnij/products.jpg"
+                      alt="AGNIJ — product catalogue with category filters"
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="overflow-hidden border border-rule">
+                    <img
+                      src="/projects/agnij/quality.jpg"
+                      alt="AGNIJ — quality standards and testimonial section"
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">2026</span>
+                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Faridabad, India</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* ── 2b: PELOCAL — SaaS admin panel ── */}
+        <div className="py-24 md:py-32 bg-cream/40">
+          <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+            <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
+              SaaS Admin Panel · Production · 2025 – Ongoing
+            </p>
+
+            <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
+              {/* Left */}
+              <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
+                    Production
+                  </p>
+                  <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
+                    Pelocal<span className="text-ember">.</span>
+                  </h2>
+                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
+                    MyAnthology Admin Operations Panel
+                  </p>
+                </div>
+
+                <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
+                  Sole frontend on a production event-ops dashboard — React + TypeScript
+                  managing 100+ events, 500+ menu items, and live customer bookings.
+                </p>
+
+                <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
+                  {[
+                    { v: "sub-300ms", l: "Table load on 1k rows" },
+                    { v: "0", l: "Overbooking incidents" },
+                    { v: "~2%", l: "Backend rejection rate" },
+                    { v: "4h", l: "New page scaffold (was 2d)" },
+                  ].map((m) => (
+                    <div key={m.l}>
+                      <p className="display text-2xl leading-none">{m.v}</p>
+                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
+                        {m.l}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {["React", "TypeScript", "TanStack Query", "TanStack Table", "Zod", "Tailwind"].map((t) => (
+                    <span key={t} className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right — main screenshot + two secondary */}
+              <div className="proj-col-right col-span-12 md:col-span-7 space-y-2">
+                {/* Main: Payments dashboard */}
+                <div className="w-full overflow-hidden border border-rule">
+                  <img
+                    src="/projects/myanthology/payments.jpg"
+                    alt="MyAnthology — Payment Analytics dashboard with transaction table"
+                    className="w-full h-auto block"
+                    loading="lazy"
+                  />
+                </div>
+                {/* Secondary: Event Menus + User Queries side by side */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="overflow-hidden border border-rule">
+                    <img
+                      src="/projects/myanthology/event-menus.jpg"
+                      alt="MyAnthology — Event Menu Catalog with filters and item table"
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="overflow-hidden border border-rule">
+                    <img
+                      src="/projects/myanthology/user-queries.jpg"
+                      alt="MyAnthology — User Queries table with status tags"
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Dec 2025 — Ongoing</span>
+                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Pelocal Fintech · Noida</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       {/* ── § 3 SERVICES — Horizontal scroll ────────────────────────────────── */}
@@ -446,7 +549,7 @@ export function HirePage() {
       <div
         ref={hScrollSectionRef}
         className="border-b border-rule overflow-hidden"
-        style={{ height: "100svh" }}
+        style={{ height: "85vh" }}
       >
         <div
           ref={hScrollTrackRef}
@@ -468,7 +571,11 @@ export function HirePage() {
 
               <h3 className="display text-2xl md:text-3xl leading-tight">{s.title}</h3>
 
-              <p className="text-sm text-ink2 leading-relaxed flex-1">{s.body}</p>
+              <p className="text-sm text-ink2 leading-relaxed">{s.body}</p>
+
+              <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-muted">
+                <span className="text-ember">Best for: </span>{s.bestFor}
+              </p>
 
               {/* Deliverables */}
               <div>
