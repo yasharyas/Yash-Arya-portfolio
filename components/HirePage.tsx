@@ -13,43 +13,43 @@ gsap.registerPlugin(ScrollTrigger);
 const services = [
   {
     num: "01",
-    category: "Frontend Systems",
-    title: "React & TypeScript Dashboards",
-    body: "Admin panels, ops tools, and data-heavy UIs. TanStack Query, TanStack Table, Zod validation end-to-end. Built for real load — 1,000-row tables at sub-300ms.",
-    deliverables: ["Admin panel architecture", "Real-time data views", "Form-heavy workflows"],
-    proof: "Pelocal: 8 modules · 100+ events · 0 overbooking incidents · ~2% backend rejection rate",
+    category: "Conversion",
+    title: "Landing Pages",
+    body: "Single-page sites built to convert. Fast, mobile-first, above-the-fold clarity. Next.js + Tailwind. Typically live in 1–2 weeks.",
+    deliverables: ["Responsive landing page", "Performance-tuned build", "Copy structure + CTA hierarchy"],
+    proof: "ShoeStore: +25% mobile engagement vs. desktop-first v1 · sub-300ms load",
   },
   {
     num: "02",
-    category: "Blockchain",
-    title: "Web3 & Smart Contracts",
-    body: "Solidity on Polygon, RainbowKit + Wagmi v2 wallet auth, on-chain data queries, IPFS uploads. From contract to production frontend in one engagement.",
-    deliverables: ["Smart contract + tests", "Wallet integration", "On-chain dashboard"],
-    proof: "XAI-Chain: Polygon Amoy · Pinata IPFS · 6/6 Hardhat tests passing",
+    category: "Brand Web",
+    title: "Marketing Sites",
+    body: "Multi-page sites for startups that need a serious web presence. Clear information architecture, subtle motion, and a design that doesn't look like a template.",
+    deliverables: ["2–6 page site", "CMS integration (optional)", "SEO-ready markup"],
+    proof: "AagniPharma: full corporate site — pipeline, focus areas, news section",
   },
   {
     num: "03",
-    category: "Machine Learning",
-    title: "AI & ML Integrations",
-    body: "LLM-powered features, SSE token streaming, vision classifiers, SHAP explainability. Gemini, PyTorch, real training data — not toy demos.",
-    deliverables: ["AI tutor / chatbot", "Vision classifier pipeline", "Explainable AI interface"],
-    proof: "HAM10000: 94.21% validation accuracy · AI Tutor: 4-mode Gemini streaming",
+    category: "Product",
+    title: "SaaS Frontend",
+    body: "Dashboards, onboarding flows, and data-heavy UI for SaaS products. TanStack Query + Table, Zod validation, auth flows. Built for real scale.",
+    deliverables: ["Dashboard architecture", "Form + validation flows", "Data tables + filters"],
+    proof: "Pelocal: 8 modules · 1k-row tables at sub-300ms · ~2% backend rejection rate",
   },
   {
     num: "04",
-    category: "Developer Tools",
-    title: "VS Code Extensions",
-    body: "Editor integrations, AI-aware state machines, Chromium IPC, terminal event hooks. Zero-polling, event-driven architecture. Ships to the Marketplace.",
-    deliverables: ["Custom VS Code extension", "Editor command palette", "Dev workflow automation"],
-    proof: "PromptLock: instant agent-detection · 7 signals · replaces 17–55s polling delay",
+    category: "Rescue",
+    title: "Revamps",
+    body: "Slow, outdated, or hard-to-maintain site? I rebuild it: faster, cleaner, and actually usable on mobile. Bring what you have — I'll bring a plan.",
+    deliverables: ["Performance audit", "Rebuilt frontend", "Mobile-first responsive"],
+    proof: "Legacy form revamp: 5-step Zod flow cut drop-off ~25% vs. single-page v1",
   },
   {
     num: "05",
-    category: "0 → 1 Products",
+    category: "0 → 1",
     title: "Full-Stack MVPs",
-    body: "From whiteboard to deployed. MERN-first, polyglot when the problem demands it. E-commerce, SaaS, portals — built to be maintained, not just launched.",
-    deliverables: ["Full-stack app", "API + DB + auth", "Deploy + README + handoff"],
-    proof: "ShoeStore: Stripe + Strapi + Cloudinary · +25% mobile engagement vs. desktop-first v1",
+    body: "From whiteboard to deployed. API, auth, database, frontend. MERN or Next.js full-stack — built to be handed off, not just demoed.",
+    deliverables: ["Full-stack app", "API + DB + auth", "Deploy + README + handoff docs"],
+    proof: "ShoeStore: Stripe + Strapi + Cloudinary · Tutor: Gemini SSE streaming · CEL portal: 12 REST endpoints",
   },
 ];
 
@@ -315,12 +315,6 @@ export function HirePage() {
               </div>
 
               <div className="col-span-12 md:col-span-5 flex flex-col justify-end md:items-end gap-2 mt-6 md:mt-0">
-                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted">
-                  Currently
-                </p>
-                <p className="hire-sub font-mono text-[11px] tracking-[0.12em] text-ink2 md:text-right max-w-[28ch]">
-                  {profile.status}
-                </p>
                 <div className="hire-sub mt-4 flex md:justify-end gap-5 text-[11px] font-mono tracking-[0.18em] uppercase">
                   <a href={links.github} target="_blank" rel="noopener noreferrer" className="link-u text-muted hover:text-ink transition-colors">GitHub</a>
                   <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="link-u text-muted hover:text-ink transition-colors">LinkedIn</a>
@@ -348,7 +342,7 @@ export function HirePage() {
       <section id="work" className="py-24 md:py-40 border-b border-rule">
         <div className="mx-auto max-w-[1400px] px-6 md:px-10">
           <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
-            Client Work · 2025 – 2026
+            Production Work · 2025 – 2026
           </p>
 
           <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
@@ -602,17 +596,9 @@ export function HirePage() {
             ))}
           </div>
 
-          <div className="pt-8 border-t border-rule">
-            <p className="font-mono text-[9px] tracking-[0.28em] uppercase text-muted mb-5">
-              Worked with
-            </p>
+          <div className="pt-8 border-t border-rule hidden">
             <div className="flex flex-wrap gap-x-10 gap-y-3">
-              {[
-                "LG Electronics",
-                "Pelocal Fintech",
-                "ILBS Healthcare (Govt.)",
-                "Central Electronics Ltd (Govt. PSU)",
-              ].map((c) => (
+              {([] as string[]).map((c) => (
                 <span
                   key={c}
                   className="font-mono text-[10px] tracking-[0.14em] text-ink2"
