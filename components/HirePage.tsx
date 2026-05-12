@@ -532,33 +532,38 @@ export function HirePage() {
       </section>
 
       {/* ── § 3 SERVICES — Horizontal scroll ────────────────────────────────── */}
-      {/* Section header (scrolls normally, lives outside the pin) */}
-      <div id="services" className="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-8">
-        <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted">
-          Services · What I Build
-        </p>
-        <h2 data-reveal className="display text-4xl md:text-6xl lg:text-7xl mt-3 leading-none">
-          What I build<span className="text-ember">.</span>
-        </h2>
-        <p data-reveal className="mt-3 font-mono text-[10px] tracking-[0.25em] uppercase text-muted hidden md:block">
-          Scroll right to explore →
-        </p>
-      </div>
-
-      {/* Pinned horizontal track */}
+      {/* Header is the first card inside the track so no orphaned blank space */}
       <div
+        id="services"
         ref={hScrollSectionRef}
-        className="border-b border-rule overflow-hidden"
-        style={{ height: "85vh" }}
+        className="border-b border-rule md:h-[85vh] md:overflow-hidden"
       >
         <div
           ref={hScrollTrackRef}
-          className="flex flex-col md:flex-row md:flex-nowrap h-full will-change-transform"
+          className="flex flex-col md:flex-row md:flex-nowrap md:h-full will-change-transform"
         >
+          {/* Intro card */}
+          <div className="w-full md:w-[380px] lg:w-[420px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col justify-between gap-8 md:h-full bg-cream/30">
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted">
+              Services · What I Build
+            </p>
+            <div>
+              <h2 className="display text-4xl md:text-[5rem] lg:text-[5.5rem] leading-[0.9]">
+                What I<br />build<span className="text-ember">.</span>
+              </h2>
+              <p className="mt-5 font-mono text-[10px] tracking-[0.25em] uppercase text-muted hidden md:block">
+                Scroll right to explore →
+              </p>
+            </div>
+            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted/50 hidden md:block">
+              4 services
+            </span>
+          </div>
+
           {services.map((s) => (
             <div
               key={s.num}
-              className="w-full md:w-[500px] lg:w-[540px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col gap-6 md:h-full overflow-y-auto md:overflow-visible"
+              className="w-full md:w-[500px] lg:w-[540px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col gap-6 md:h-full"
             >
               <div className="flex items-start justify-between">
                 <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-ember">
