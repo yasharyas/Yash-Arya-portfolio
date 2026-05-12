@@ -355,7 +355,7 @@ export function HirePage() {
                     AGNIJ<span className="text-ember">.</span>
                   </h2>
                   <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
-                    Pharmaceuticals Brand Site
+                    Marketing Site
                   </p>
                 </div>
 
