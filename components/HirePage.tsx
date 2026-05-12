@@ -36,7 +36,7 @@ const services = [
     body: "Dashboards, admin panels, and data-heavy UIs that don't slow down under real load. TanStack Query, TanStack Table, Zod validation, sub-300ms renders on thousand-row tables. Built for founders who need the product to work as well as it looks.",
     bestFor: "Ops tools · Admin panels · Data-heavy products",
     deliverables: ["React + TypeScript dashboard", "Real-time data views", "Form-heavy workflow UI"],
-    proof: "Pelocal: 8 modules · 1k-row tables at sub-300ms · ~2% backend rejection rate",
+    proof: "Production-tested: sub-300ms table renders on 1k+ rows, zero overbooking incidents across 100+ live events",
   },
   {
     num: "04",
