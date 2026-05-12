@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
-import { profile, links, stats } from "@/lib/content";
+import { profile, links } from "@/lib/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -288,10 +288,9 @@ export function HirePage() {
             <div className="mt-10 md:mt-14 grid grid-cols-12 gap-6">
               <div className="col-span-12 md:col-span-7">
                 <p className="hire-sub text-base md:text-lg text-ink2 leading-relaxed max-w-[54ch]">
-                  React + TypeScript engineer with {stats[0].value} internships and 7 shipped
-                  projects. I build admin dashboards, smart contracts, AI tools, and editor
-                  extensions. Looking for startups and engineering teams who need things{" "}
-                  <em className="not-italic font-medium text-ink">actually finished.</em>
+                  I build landing pages, marketing sites, and web apps for AI tools, SaaS
+                  startups, and modern brands. Fast, clean, and actually finished —{" "}
+                  <em className="not-italic font-medium text-ink">that's the only way I ship.</em>
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -322,8 +321,13 @@ export function HirePage() {
 
           {/* Stats band */}
           <div className="mt-14 md:mt-20 pt-6 border-t border-rule grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((s, i) => (
-              <div key={i} className="hire-stat">
+            {([
+              { value: "1", label: "Client Project Live" },
+              { value: "7+", label: "Projects Shipped" },
+              { value: "24H", label: "Response Time" },
+              { value: "Async", label: "Remote Friendly" },
+            ] as const).map((s) => (
+              <div key={s.label} className="hire-stat">
                 <p className="display text-3xl md:text-4xl">{s.value}</p>
                 <p className="mt-1 font-mono text-[9px] tracking-[0.22em] uppercase text-muted">
                   {s.label}
@@ -338,7 +342,7 @@ export function HirePage() {
       <section id="work" className="border-b border-rule">
 
         {/* ── 2a: AGNIJ — Marketing site, real client ── */}
-        <div className="py-24 md:py-40 border-b border-rule">
+        <div className="py-24 md:py-40">
           <div className="mx-auto max-w-[1400px] px-6 md:px-10">
             <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
               Marketing Site · Live Client · 2026
@@ -438,96 +442,6 @@ export function HirePage() {
           </div>
         </div>
 
-        {/* ── 2b: PELOCAL — SaaS admin panel ── */}
-        <div className="py-24 md:py-32 bg-cream/40">
-          <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-            <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
-              SaaS Admin Panel · Production · 2025 – Ongoing
-            </p>
-
-            <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
-              {/* Left */}
-              <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
-                    Production
-                  </p>
-                  <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
-                    Pelocal<span className="text-ember">.</span>
-                  </h2>
-                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
-                    MyAnthology Admin Operations Panel
-                  </p>
-                </div>
-
-                <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
-                  Sole frontend on a production event-ops dashboard — React + TypeScript
-                  managing 100+ events, 500+ menu items, and live customer bookings.
-                </p>
-
-                <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
-                  {[
-                    { v: "sub-300ms", l: "Table load on 1k rows" },
-                    { v: "0", l: "Overbooking incidents" },
-                    { v: "~2%", l: "Backend rejection rate" },
-                    { v: "4h", l: "New page scaffold (was 2d)" },
-                  ].map((m) => (
-                    <div key={m.l}>
-                      <p className="display text-2xl leading-none">{m.v}</p>
-                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
-                        {m.l}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {["React", "TypeScript", "TanStack Query", "TanStack Table", "Zod", "Tailwind"].map((t) => (
-                    <span key={t} className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right — main screenshot + two secondary */}
-              <div className="proj-col-right col-span-12 md:col-span-7 space-y-2">
-                {/* Main: Payments dashboard */}
-                <div className="w-full overflow-hidden border border-rule">
-                  <img
-                    src="/projects/myanthology/payments.jpg"
-                    alt="MyAnthology — Payment Analytics dashboard with transaction table"
-                    className="w-full h-auto block"
-                    loading="lazy"
-                  />
-                </div>
-                {/* Secondary: Event Menus + User Queries side by side */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="overflow-hidden border border-rule">
-                    <img
-                      src="/projects/myanthology/event-menus.jpg"
-                      alt="MyAnthology — Event Menu Catalog with filters and item table"
-                      className="w-full h-auto block"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="overflow-hidden border border-rule">
-                    <img
-                      src="/projects/myanthology/user-queries.jpg"
-                      alt="MyAnthology — User Queries table with status tags"
-                      className="w-full h-auto block"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Dec 2025 — Ongoing</span>
-                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Pelocal Fintech · Noida</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </section>
 
