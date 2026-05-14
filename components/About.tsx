@@ -149,7 +149,7 @@ export function About() {
                 loading="lazy"
               />
               <figcaption className="mt-3 font-mono text-[10px] tracking-[0.22em] uppercase text-muted">
-                Yash Arya · Faridabad, IN
+                Yash Arya · India
               </figcaption>
             </figure>
           </div>

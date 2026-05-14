@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     "VS Code extension developer",
     "Bennett University",
     "Pelocal Fintech",
-    "Faridabad developer",
+    "India developer",
     "New Delhi developer",
   ],
   alternates: {
@@ -129,7 +129,7 @@ const personJsonLd = {
   },
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Faridabad",
+    addressLocality: "New Delhi",
     addressRegion: "Delhi NCR",
     addressCountry: "IN",
   },
