@@ -76,7 +76,7 @@ export const metadata: Metadata = {
       "Production React + TypeScript dashboards, Solidity on Polygon, PyTorch on a 3060, VS Code extensions.",
     images: [
       {
-        url: "/og.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Yash Arya — Full Stack Developer",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     description:
       "Production React + TypeScript dashboards, Solidity on Polygon, PyTorch, VS Code extensions.",
     creator: "@yasharyaaa",
-    images: ["/og.svg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
