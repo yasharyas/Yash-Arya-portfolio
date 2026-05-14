@@ -40,12 +40,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Yash Arya — Full Stack Developer (React, Web3, AI/ML)",
-    template: "%s — Yash Arya",
+    default: "Yash Arya - Full Stack Developer (React, Next.js, Web3, AI/ML)",
+    template: "%s - Yash Arya",
   },
   description:
     "Yash Arya — Full stack developer (React + TypeScript, Solidity on Polygon, PyTorch, VS Code extensions). B.Tech CSE, Bennett University. Frontend Engineering Intern at Pelocal Fintech.",
-  applicationName: "Yash Arya — Portfolio",
+  applicationName: "Yash Arya - Portfolio",
   authors: [{ name: "Yash Arya", url: SITE_URL }],
   creator: "Yash Arya",
   publisher: "Yash Arya",
@@ -70,25 +70,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Yash Arya — Portfolio",
-    title: "Yash Arya — Full Stack Developer (React, Web3, AI/ML)",
+    siteName: "Yash Arya - Portfolio",
+    title: "Yash Arya - Full Stack Developer (React, Next.js, Web3, AI/ML)",
     description:
-      "Production React + TypeScript dashboards, Solidity on Polygon, PyTorch on a 3060, VS Code extensions.",
+      "React, Next.js, Web3, AI/ML. Full stack engineer building production systems end to end.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Yash Arya — Full Stack Developer",
+        alt: "Yash Arya - Full Stack Developer",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yash Arya — Full Stack Developer",
+    title: "Yash Arya - Full Stack Developer",
     description:
-      "Production React + TypeScript dashboards, Solidity on Polygon, PyTorch, VS Code extensions.",
+      "React, Next.js, Web3, AI/ML. Full stack engineer building production systems end to end.",
     creator: "@yasharyaaa",
     images: ["/og-image.png"],
   },
