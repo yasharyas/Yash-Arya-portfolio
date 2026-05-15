@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
-import { profile, links } from "@/lib/content";
+import { profile, links, stats } from "@/lib/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +16,6 @@ const services = [
     category: "Conversion",
     title: "Landing Pages",
     body: "The hero has 5 seconds to say what you do and why it matters. Most don't. I build Next.js landing pages that communicate value fast — clear structure, sharp copy layout, and motion that doesn't get in the way. Built for SaaS tools and AI platforms that need to convert visitors, not just impress them.",
-    bestFor: "SaaS tools · AI platforms · Early-stage startups",
     deliverables: ["Hero + feature sections", "Pricing and FAQ blocks", "CTA flow + form integration"],
     proof: "",
   },
@@ -25,7 +24,6 @@ const services = [
     category: "Brand Web",
     title: "Marketing Sites",
     body: "More than a landing page — a full web presence. Multi-page sites for brands that need to look serious before a prospect ever reaches the contact form. Built with Next.js, optimised for performance, and designed to hold up at scale.",
-    bestFor: "Pharma · Healthcare · B2B brands · Professional services",
     deliverables: ["Full multi-page architecture", "Content management ready", "SEO structure + performance"],
     proof: "AGNIJ Pharmaceuticals: full brand site, product catalogue, quote flow — live at agnijpharma.com",
   },
@@ -34,16 +32,14 @@ const services = [
     category: "Product",
     title: "SaaS Frontend",
     body: "Dashboards, admin panels, and data-heavy UIs that don't slow down under real load. TanStack Query, TanStack Table, Zod validation, sub-300ms renders on thousand-row tables. Built for founders who need the product to work as well as it looks.",
-    bestFor: "Ops tools · Admin panels · Data-heavy products",
     deliverables: ["React + TypeScript dashboard", "Real-time data views", "Form-heavy workflow UI"],
-    proof: "Production-tested: sub-300ms table renders on 1k+ rows, zero overbooking incidents across 100+ live events",
+    proof: "Pelocal: 8 modules · 1k-row tables at sub-300ms · ~2% backend rejection rate",
   },
   {
     num: "04",
     category: "Rescue",
     title: "Site Revamps",
     body: "Your product has outgrown your website. The design is dated, the copy doesn't land, and the mobile experience is an afterthought. I take existing sites and rebuild them — same brand, better everything. Faster load, cleaner layout, copy that actually sells.",
-    bestFor: "Products that outgrew their first site",
     deliverables: ["Full frontend rebuild", "Copy restructure", "Performance audit + fixes"],
     proof: "",
   },
@@ -288,9 +284,10 @@ export function HirePage() {
             <div className="mt-10 md:mt-14 grid grid-cols-12 gap-6">
               <div className="col-span-12 md:col-span-7">
                 <p className="hire-sub text-base md:text-lg text-ink2 leading-relaxed max-w-[54ch]">
-                  I build landing pages, marketing sites, and web apps for AI tools, SaaS
-                  startups, and modern brands. Fast, clean, and actually finished —{" "}
-                  <em className="not-italic font-medium text-ink">that's the only way I ship.</em>
+                  React + TypeScript engineer with {stats[0].value} internships and 7 shipped
+                  projects. I build admin dashboards, smart contracts, AI tools, and editor
+                  extensions. Looking for startups and engineering teams who need things{" "}
+                  <em className="not-italic font-medium text-ink">actually finished.</em>
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -321,13 +318,8 @@ export function HirePage() {
 
           {/* Stats band */}
           <div className="mt-14 md:mt-20 pt-6 border-t border-rule grid grid-cols-2 md:grid-cols-4 gap-6">
-            {([
-              { value: "1", label: "Client Project Live" },
-              { value: "7+", label: "Projects Shipped" },
-              { value: "24H", label: "Response Time" },
-              { value: "Async", label: "Remote Friendly" },
-            ] as const).map((s) => (
-              <div key={s.label} className="hire-stat">
+            {stats.map((s, i) => (
+              <div key={i} className="hire-stat">
                 <p className="display text-3xl md:text-4xl">{s.value}</p>
                 <p className="mt-1 font-mono text-[9px] tracking-[0.22em] uppercase text-muted">
                   {s.label}
@@ -338,146 +330,132 @@ export function HirePage() {
         </div>
       </section>
 
-      {/* ── § 2 FEATURED WORK ─────────────────────────────────────────────── */}
-      <section id="work" className="border-b border-rule">
+      {/* ── § 2 FEATURED PROJECT ────────────────────────────────────────────── */}
+      <section id="work" className="py-24 md:py-40 border-b border-rule">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+          <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
+            Production Work · 2025 – 2026
+          </p>
 
-        {/* ── 2a: AGNIJ — Marketing site, real client ── */}
-        <div className="py-24 md:py-40">
-          <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-            <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted mb-14">
-              Marketing Site · Live Client · 2026
-            </p>
-
-            <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
-              {/* Left */}
-              <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
-                    Client Work
-                  </p>
-                  <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
-                    AGNIJ<span className="text-ember">.</span>
-                  </h2>
-                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
-                    Marketing Site
-                  </p>
-                </div>
-
-                <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
-                  Full brand website for AGNIJ Pharmaceuticals — product catalogue, therapeutic
-                  category navigation, quote flow, and a trust-first design built for
-                  healthcare professionals and hospital procurement teams.
+          <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
+            {/* Left */}
+            <div className="proj-col-left col-span-12 md:col-span-5 space-y-7">
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ember">
+                  Featured
                 </p>
-
-                <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
-                  {[
-                    { v: "12", l: "Product SKUs catalogued" },
-                    { v: "500+", l: "Hospitals served" },
-                    { v: "Multi-page", l: "Architecture" },
-                    { v: "Live", l: "agnijpharma.com" },
-                  ].map((m) => (
-                    <div key={m.l}>
-                      <p className="display text-2xl leading-none">{m.v}</p>
-                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
-                        {m.l}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {["Next.js", "Tailwind", "TypeScript", "SEO"].map((t) => (
-                    <span key={t} className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <a
-                  href="https://agnijpharma.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-ink text-ink px-5 py-2.5 text-xs font-mono tracking-[0.15em] uppercase hover:bg-ink hover:text-paper transition-colors duration-300"
-                >
-                  agnijpharma.com <span aria-hidden="true">↗</span>
-                </a>
+                <h2 className="display text-5xl md:text-7xl mt-2 leading-none">
+                  Pelocal<span className="text-ember">.</span>
+                </h2>
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-muted mt-2">
+                  Admin Operations Panel
+                </p>
               </div>
 
-              {/* Right — 3 cropped screenshots stacked */}
-              <div className="proj-col-right col-span-12 md:col-span-7 space-y-2">
-                {/* Hero crop — full width */}
-                <div className="w-full overflow-hidden border border-rule">
-                  <img
-                    src="/projects/agnij/hero.jpg"
-                    alt="AGNIJ Pharmaceuticals — hero section with dark background and headline"
-                    className="w-full h-auto block"
-                    loading="lazy"
-                  />
-                </div>
-                {/* Products + Quality — side by side */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="overflow-hidden border border-rule">
-                    <img
-                      src="/projects/agnij/products.jpg"
-                      alt="AGNIJ — product catalogue with category filters"
-                      className="w-full h-auto block"
-                      loading="lazy"
-                    />
+              <p className="text-sm text-ink2 leading-relaxed max-w-[44ch]">
+                Sole frontend engineer on a production event-ops dashboard — React + TypeScript
+                managing 100+ events, 500+ menu items, and live customer bookings for MyAnthology
+                and Sammaan Capital.
+              </p>
+
+              {/* Proof metrics */}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 border-y border-rule">
+                {[
+                  { v: "sub-300ms", l: "Table load on 1k rows" },
+                  { v: "0", l: "Overbooking incidents" },
+                  { v: "~2%", l: "Backend rejection rate" },
+                  { v: "4h", l: "New page scaffold (was 2d)" },
+                ].map((m) => (
+                  <div key={m.l}>
+                    <p className="display text-2xl leading-none">{m.v}</p>
+                    <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted mt-1">
+                      {m.l}
+                    </p>
                   </div>
-                  <div className="overflow-hidden border border-rule">
-                    <img
-                      src="/projects/agnij/quality.jpg"
-                      alt="AGNIJ — quality standards and testimonial section"
-                      className="w-full h-auto block"
-                      loading="lazy"
-                    />
-                  </div>
+                ))}
+              </div>
+
+              {/* Stack pills */}
+              <div className="flex flex-wrap gap-2">
+                {["React", "TypeScript", "TanStack Query", "TanStack Table", "Zod", "Tailwind"].map(
+                  (t) => (
+                    <span
+                      key={t}
+                      className="font-mono text-[9px] tracking-[0.12em] uppercase border border-rule px-2.5 py-1 text-muted"
+                    >
+                      {t}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Right — screenshot placeholder */}
+            <div className="proj-col-right col-span-12 md:col-span-7">
+              <div className="relative w-full aspect-[16/10] bg-cream border border-rule overflow-hidden">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-1.5 px-4 py-3 border-b border-rule bg-paper/80">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rule" />
+                  <span className="ml-4 flex-1 h-4 rounded-sm bg-rule/50 max-w-[180px]" />
+                  <span className="ml-auto font-mono text-[9px] tracking-[0.15em] uppercase text-muted/50">
+                    Live URL →
+                  </span>
                 </div>
-                <div className="flex items-center justify-between pt-1">
-                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">2026</span>
-                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">Faridabad, India</span>
+                {/* Placeholder body */}
+                <div className="absolute inset-0 top-[44px] flex flex-col items-center justify-center gap-3">
+                  <div className="w-16 h-px bg-rule" />
+                  <p className="font-mono text-[9px] tracking-[0.28em] uppercase text-muted/50">
+                    Screenshot arriving soon
+                  </p>
+                  <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted/30">
+                    Pelocal · MyAnthology Admin
+                  </p>
+                  <div className="w-16 h-px bg-rule" />
                 </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">
+                  Dec 2025 — Ongoing
+                </span>
+                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted">
+                  Pelocal Fintech · Noida
+                </span>
               </div>
             </div>
           </div>
         </div>
-
-
       </section>
 
       {/* ── § 3 SERVICES — Horizontal scroll ────────────────────────────────── */}
-      {/* Header is the first card inside the track so no orphaned blank space */}
+      {/* Section header (scrolls normally, lives outside the pin) */}
+      <div id="services" className="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-8">
+        <p data-reveal className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted">
+          Services · What I Build
+        </p>
+        <h2 data-reveal className="display text-4xl md:text-6xl lg:text-7xl mt-3 leading-none">
+          What I build<span className="text-ember">.</span>
+        </h2>
+        <p data-reveal className="mt-3 font-mono text-[10px] tracking-[0.25em] uppercase text-muted hidden md:block">
+          Scroll right to explore →
+        </p>
+      </div>
+
+      {/* Pinned horizontal track */}
       <div
-        id="services"
         ref={hScrollSectionRef}
-        className="border-b border-rule md:h-[85vh] md:overflow-hidden"
+        className="border-b border-rule overflow-hidden"
+        style={{ height: "100svh" }}
       >
         <div
           ref={hScrollTrackRef}
-          className="flex flex-col md:flex-row md:flex-nowrap md:h-full will-change-transform"
+          className="flex flex-col md:flex-row md:flex-nowrap h-full will-change-transform"
         >
-          {/* Intro card */}
-          <div className="w-full md:w-[380px] lg:w-[420px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col justify-between gap-8 md:h-full bg-cream/30">
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted">
-              Services · What I Build
-            </p>
-            <div>
-              <h2 className="display text-4xl md:text-[5rem] lg:text-[5.5rem] leading-[0.9]">
-                What I<br />build<span className="text-ember">.</span>
-              </h2>
-              <p className="mt-5 font-mono text-[10px] tracking-[0.25em] uppercase text-muted hidden md:block">
-                Scroll right to explore →
-              </p>
-            </div>
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted/50 hidden md:block">
-              4 services
-            </span>
-          </div>
-
           {services.map((s) => (
             <div
               key={s.num}
-              className="w-full md:w-[500px] lg:w-[540px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col gap-6 md:h-full"
+              className="w-full md:w-[500px] lg:w-[540px] md:flex-shrink-0 border-b md:border-b-0 md:border-r border-rule p-8 md:p-12 flex flex-col gap-6 md:h-full overflow-y-auto md:overflow-visible"
             >
               <div className="flex items-start justify-between">
                 <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-ember">
@@ -490,11 +468,7 @@ export function HirePage() {
 
               <h3 className="display text-2xl md:text-3xl leading-tight">{s.title}</h3>
 
-              <p className="text-sm text-ink2 leading-relaxed">{s.body}</p>
-
-              <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-muted">
-                <span className="text-ember">Best for: </span>{s.bestFor}
-              </p>
+              <p className="text-sm text-ink2 leading-relaxed flex-1">{s.body}</p>
 
               {/* Deliverables */}
               <div>
