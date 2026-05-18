@@ -284,10 +284,9 @@ export function HirePage() {
             <div className="mt-10 md:mt-14 grid grid-cols-12 gap-6">
               <div className="col-span-12 md:col-span-7">
                 <p className="hire-sub text-base md:text-lg text-ink2 leading-relaxed max-w-[54ch]">
-                  React + TypeScript engineer with {stats[0].value} internships and 7 shipped
-                  projects. I build admin dashboards, smart contracts, AI tools, and editor
-                  extensions. Looking for startups and engineering teams who need things{" "}
-                  <em className="not-italic font-medium text-ink">actually finished.</em>
+                  React and TypeScript engineer. I build admin dashboards, AI tools, smart contracts,
+                  and editor extensions for startups that need things actually finished. 7 shipped
+                  projects across 4 production teams, fast turnaround, async-friendly.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
