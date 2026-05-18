@@ -138,7 +138,7 @@ export function Hero() {
           <div className="col-span-12 md:col-span-7">
             <p
               ref={taglineRef}
-              className="text-sm md:text-base leading-relaxed max-w-[52ch] tracking-normal text-ink2"
+              className="whitespace-pre-line text-sm md:text-base leading-relaxed max-w-[44ch] md:max-w-[46ch] tracking-normal text-ink2"
             >
               {/* Screen-reader reads the sr-only span; animated chars are hidden from AT */}
               <span className="sr-only">{profile.tagline}</span>

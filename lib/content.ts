@@ -10,7 +10,7 @@ export const profile = {
   avatar: "https://avatars.githubusercontent.com/u/123353688?v=4",
   // Drafted tagline & narrative — flagged in source as missing; safe-default copy that fits tone.
   tagline:
-    "Full Stack Engineer. I build production systems end to end: React dashboards, Solidity contracts, ML pipelines, and editor tooling. Four internships, real users, shipped.",
+    "Full Stack Engineer. Production systems end to end.\nReact dashboards, Solidity, ML, editor tooling.",
   bio: [
     "I'm Yash, a final-year CS student at Bennett University and a frontend engineer interning at Pelocal Fintech, where I'm the sole frontend on an event-operations admin panel running 100+ events and 500+ menu items in production.",
     "Across four internships — LG, a Government of India PSU, ILBS healthcare, and Pelocal — I've learned that good software is less about the stack and more about the seams: the validation that catches a double booking before launch, the cache that turns a 1,000-row table into a 300ms page, the SHAP value that makes an AI prediction defensible.",
